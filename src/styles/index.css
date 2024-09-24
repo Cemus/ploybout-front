@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blue0: #172038;
+  --blue1: #253a5e;
+  --blue2: #3c5e8b;
+  --blue3: #4f8fba;
+  --blue4: #73bed3;
+  --blue5: #a4dddb;
+
+  --green0: #19332d;
+  --green1: #25562e;
+  --green2: #468232;
+  --green3: #75a743;
+  --green4: #a8ca58;
+  --green5: #d0da91;
+
+  --beige0: #4d2b32;
+  --beige1: #7a4841;
+  --beige2: #ad7757;
+  --beige3: #c09473;
+  --beige4: #d7b594;
+  --beige5: #e7d5b3;
+
+  --yellow0: #341c27;
+  --yellow1: #602c2c;
+  --yellow2: #884b2b;
+  --yellow3: #be772b;
+  --yellow4: #de9e41;
+  --yellow5: #e8c170;
+
+  --red0: #241527;
+  --red1: #411d31;
+  --red2: #752438;
+  --red3: #a53030;
+  --red4: #cf573c;
+  --red5: #da863e;
+
+  --purple0: #1e1d39;
+  --purple1: #402751;
+  --purple2: #7a367b;
+  --purple3: #a23e8c;
+  --purple4: #c65197;
+  --purple5: #df84a5;
+
+  --gray0: #090a14;
+  --gray1: #10141f;
+  --gray2: #151d28;
+  --gray3: #202e37;
+  --gray4: #394a50;
+  --gray5: #577277;
+
+  --white0: #819796;
+  --white1: #a8b5b2;
+  --white2: #c7cfcc;
+  --white3: #ebede9;
+}
+
+.loading-circle {
+  height: 2rem;
+  width: 2rem;
+  border-color: rgb(34 197 94);
+  border-width: 4px;
+  border-top-color: transparent;
+  border-style: solid;
+  border-radius: 9999px;
+}
+
+.button {
+  color: white;
+  font-size: large;
+  padding-inline: 2rem;
+  padding-block: 1rem;
+  background-color: #15803d;
+  border-radius: 0.75rem;
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color),
+    0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+/* F O R M */
+
+.form {
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  max-width: 28rem;
+  background: var(--white2);
+}
+
+.form > h3 {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  width: 100%;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  text-align: center;
+  color: var(--white3);
+  background: var(--blue1);
+}
+
+.form > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.form > button {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0.5rem;
+  color: var(--white3);
+  background: var(--blue2);
+}
+
+.form > div > input {
+  border-radius: 0.5rem;
+  background: var(--white3);
+}
+
+.form > button:hover {
+  background-color: var(--blue3);
+}
