@@ -1,4 +1,4 @@
-import Overview from "../Overview";
+import Overview from "./Overview";
 
 export default function Home() {
   return (
