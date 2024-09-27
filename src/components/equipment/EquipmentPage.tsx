@@ -57,7 +57,7 @@ export default function EquipmentPage() {
   }, [stableFetchProfile, selectedFighter, currentFighter]);
 
   return (
-    <div className="flex-1 flex flex-col  p-4 select-none text-white">
+    <div className="flex-1 flex flex-col  p-4 select-none text-white pb-24 md:pb-0">
       {currentFighter && (
         <>
           <EquipmentView

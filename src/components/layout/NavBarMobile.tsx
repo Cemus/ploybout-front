@@ -11,7 +11,7 @@ export default function NavBarMobile() {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white text-xs shadow-lg z-50">
+    <nav className=" bg-gray-800 text-white text-xs shadow-lg z-50">
       <ul className="grid grid-cols-5 gap-2 p-2">
         {isLoggedIn ? (
           <>

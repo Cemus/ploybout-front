@@ -91,7 +91,7 @@ export default function CombatPage() {
 
   if (loading)
     return (
-      <div className="flex-1 flex flex-col items-center justify-center gap-2">
+      <div className="flex-1 flex flex-col items-center justify-center gap-2 ">
         <p className="animate-pulse text-2xl text-white">Loading players</p>
         <div className="loading-circle animate-spin"></div>
       </div>
@@ -99,7 +99,7 @@ export default function CombatPage() {
   if (error) return <p>Error loading players: {error}</p>;
 
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col pb-24 md:pb-0">
       <h2 className="text-white text-xl p-4 text-center">Arena</h2>
       <div className="flex flex-1 items-center justify-center">
         <ul className="flex flex-wrap items-center justify-center w-full ">

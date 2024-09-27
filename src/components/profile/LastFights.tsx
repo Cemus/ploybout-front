@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import useExitSession from "../hooks/useExitSession";
-import { useFn } from "../hooks/useFn";
+import useExitSession from "../../hooks/useExitSession";
+import { useFn } from "../../hooks/useFn";
 
 interface LastFightsProps {
   id: number;

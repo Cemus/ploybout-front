@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { useFighter } from "../hooks/useFighter";
-import { useProfile } from "../hooks/useProfile";
-import EquippedCards from "../components/cards/EquippedCards";
-import CharacterCanvas from "../components/character/CharacterCanvas";
-import { useFn } from "../hooks/useFn";
+import { useFighter } from "../../hooks/useFighter";
+import { useProfile } from "../../hooks/useProfile";
+import EquippedCards from "../cards/EquippedCards";
+import CharacterCanvas from "../character/CharacterCanvas";
+import { useFn } from "../../hooks/useFn";
 import LastFights from "./LastFights";
 
 export default function Profile() {
@@ -18,7 +18,7 @@ export default function Profile() {
   }, [profile, stableFetchProfile, selectedFighter]);
 
   return (
-    <div className="flex-1 flex flex-col items-center ">
+    <div className="flex-1 flex flex-col items-center pb-24 md:pb-0">
       {profile ? (
         <>
           <h2 className="text-white text-xl p-4">

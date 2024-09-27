@@ -349,7 +349,7 @@ const Battlefield = () => {
     });
   }; */
   return (
-    <div className="flex-1 flex text-white text-2xl">
+    <div className="flex-1 flex text-white text-2xl pb-24 md:pb-0">
       {endingPopUp ? (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <dialog open className="m-auto p-4 bg-white rounded shadow-lg">
