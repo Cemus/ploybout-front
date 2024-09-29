@@ -20,6 +20,7 @@ interface ArenaProps {
 
 function CameraSetup() {
   const { camera } = useThree();
+
   useEffect(() => {
     camera.position.set(0, 2, 9);
   }, [camera]);
@@ -32,7 +33,9 @@ function ArenaContent(props: ArenaProps) {
   const opponentRef: React.MutableRefObject<THREE.Group | null> =
     useRef<THREE.Group | null>(null);
   const [isFloorLoaded, setIsFloorLoaded] = useState<boolean>(false);
-
+  const [currentTargetPos, setCurrentTargetPos] = useState<THREE.Vector3>(
+    new THREE.Vector3(0, 0, 0)
+  );
   const playerPlayAnimation = useRef<(arg0: AnimationState) => void>(() => {});
   const opponentPlayAnimation = useRef<(arg0: AnimationState) => void>(
     () => {}
@@ -55,10 +58,13 @@ function ArenaContent(props: ArenaProps) {
 
   useEffect(() => {
     playerMovePosition.current(props.playerPosition);
+    const newPos = new THREE.Vector3(props.playerPosition);
+    setCurrentTargetPos(newPos);
   }, [props.playerPosition]);
 
   return (
     <>
+      <OrbitControls target={currentTargetPos} maxPolarAngle={Math.PI / 2} />
       <CameraSetup />
       <FloorMarks setIsFloorLoaded={setIsFloorLoaded} />
       {isFloorLoaded && (
@@ -95,7 +101,6 @@ export function Arena(props: ArenaProps) {
   return (
     <div className="flex-1">
       <Canvas>
-        <OrbitControls />
         <ambientLight intensity={0.9} />
         <spotLight
           position={[0, 9, 0]}

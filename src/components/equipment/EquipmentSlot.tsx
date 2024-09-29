@@ -29,7 +29,7 @@ export default function EquipmentSlot({
   }));
   return (
     <div
-      className="relative flex items-center justify-center h-16 w-16 lg:h-32 lg:w-32 bg-black rounded-md"
+      className="relative flex items-center justify-center h-16 w-16 lg:h-32 lg:w-32 bg-black rounded-md shadow-md shadow-black"
       ref={drop}
     >
       {item ? (

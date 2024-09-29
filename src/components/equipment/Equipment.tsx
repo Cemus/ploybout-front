@@ -57,7 +57,7 @@ export default function Equipment({
   return (
     <div
       ref={drag}
-      className={`relative flex flex-col text-center justify-center items-center bg-black m-1 p-1 border-2 border-black w-32 rounded-md hover:border-slate-500 cursor-pointer ${
+      className={`relative flex flex-col text-center justify-center items-center bg-black m-1 p-1 border-2 border-black w-32 rounded-md hover:border-slate-500 cursor-pointer  ${
         selectedItem === equipment.item ? "border-white" : "border-black"
       }`}
       onClick={() =>

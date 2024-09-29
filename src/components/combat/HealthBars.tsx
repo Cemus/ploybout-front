@@ -29,7 +29,7 @@ export default function HealthBars(props: HealthBarProps) {
         energyCircles.push(
           <div
             key={i}
-            className={`h-8  w-8 rounded-full bg-blue-500
+            className={`h-4 w-4 md:h-8  md:w-8 rounded-full bg-blue-500
             `}
           ></div>
         );
@@ -41,7 +41,7 @@ export default function HealthBars(props: HealthBarProps) {
           energyCircles.push(
             <div
               key={i}
-              className={`h-8  w-8 rounded-full bg-black
+              className={`h-4 w-4 md:h-8  md:w-8  rounded-full bg-black
               `}
             ></div>
           );
@@ -52,24 +52,26 @@ export default function HealthBars(props: HealthBarProps) {
   };
 
   return (
-    <div className=" flex justify-between gap-48">
-      <div className="flex w-1/2 flex-col">
-        <div className="relative w-full h-6 bg-gray-700">
+    <div className=" flex justify-between md:gap-48 items-center">
+      <div className="flex flex-1 flex-col">
+        {/*Health bar P1*/}
+        <div className="relative w-full h-4 md:h-6 bg-gray-700">
           <div
             className="absolute left-0 top-0 h-full bg-red-500 transition-width duration-500 ease-out"
             style={{ width: `${hpBar(true)}%` }}
           ></div>
         </div>
         <label className="p-2">{props.playerFighter.name}</label>
-        <div className="place-self-center">
+        <div className="px-2 place-self-start ">
           {drawEnergy(props.playerEnergy)}
         </div>
       </div>
-      <div>
-        <p>TURN : {props.turn}</p>
-      </div>
-      <div className="flex w-1/2 flex-col">
-        <div className="relative w-full h-6 bg-gray-700">
+
+      <p className=" text-base md:text-lg ">Turn {props.turn} </p>
+
+      <div className="flex flex-1 flex-col">
+        {/*Health bar P2*/}
+        <div className="relative w-full  h-4 md:h-6 bg-gray-700">
           <div
             className="absolute right-0 top-0 h-full bg-red-500 transition-width duration-500 ease-out"
             style={{ width: `${hpBar(false)}%` }}
@@ -78,7 +80,7 @@ export default function HealthBars(props: HealthBarProps) {
         <label className="place-self-end p-2">
           {props.opponentFighter.name}
         </label>
-        <div className="place-self-center">
+        <div className="px-2 place-self-end">
           {drawEnergy(props.opponentEnergy)}
         </div>
       </div>
