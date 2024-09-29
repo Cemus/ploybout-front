@@ -193,13 +193,13 @@ const Battlefield = () => {
           break;
 
         case "movement":
-          animationDuration = 500;
+          animationDuration = 100;
           if (isPlayer) {
             setPlayer((prevPlayer) => ({
               ...prevPlayer,
               animationState: {
                 prevAnimation: prevPlayer.animationState.currentAnimation,
-                currentAnimation: "movement",
+                currentAnimation: "run",
                 id: prevPlayer.animationState.id + 1,
               },
             }));
@@ -208,7 +208,7 @@ const Battlefield = () => {
               ...prevOpponent,
               animationState: {
                 prevAnimation: prevOpponent.animationState.currentAnimation,
-                currentAnimation: "movement",
+                currentAnimation: "run",
                 id: prevOpponent.animationState.id + 1,
               },
             }));

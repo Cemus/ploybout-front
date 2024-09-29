@@ -223,6 +223,7 @@ const loadAnimations = async (character: THREE.Group) => {
 
   const animations = {
     idle: "/models/player/animations/idle.glb",
+    run: "/models/player/animations/run.glb",
     attack: "/models/player/animations/attack.glb",
     hurt: "/models/player/animations/hurt.glb",
     cast: "/models/player/animations/cast.glb",
@@ -353,7 +354,10 @@ export default memo(function CharacterLoader({
           const action = actions[animation.currentAnimation];
           if (action) {
             action.reset().fadeIn(0.3).play();
-            if (animation.currentAnimation === "idle") {
+            if (
+              animation.currentAnimation === "idle" ||
+              animation.currentAnimation === "run"
+            ) {
               action.setLoop(THREE.LoopRepeat, Infinity);
               setCharacterReadiness(true);
             } else {
@@ -452,7 +456,7 @@ export default memo(function CharacterLoader({
       const positionSign = Math.sign(
         targetPosition - characterRef.current.position.x
       );
-      const step = 0.05 * positionSign;
+      const step = 0.1 * positionSign;
 
       if (
         Math.abs(targetPosition - characterRef.current.position.x) <=
