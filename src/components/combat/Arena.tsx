@@ -62,6 +62,10 @@ function ArenaContent(props: ArenaProps) {
     setCurrentTargetPos(newPos);
   }, [props.playerPosition]);
 
+  useEffect(() => {
+    opponentMovePosition.current(props.opponentPosition);
+  }, [props.opponentPosition]);
+
   return (
     <>
       <OrbitControls target={currentTargetPos} maxPolarAngle={Math.PI / 2} />

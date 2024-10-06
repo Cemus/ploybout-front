@@ -7,6 +7,7 @@ import { useFn } from "../../hooks/useFn";
 import HealthBars from "./HealthBars";
 import { isFightReady, updateFighterStats } from "../../utils/combatUtils";
 import { CardInterface, AnimationState } from "../../types/types";
+import DamageText from "./DamageText";
 
 interface CardSpecific {
   card: CardInterface;
@@ -69,6 +70,9 @@ const Battlefield = () => {
   const [currentLogIndex, setCurrentLogIndex] = useState(0);
 
   const [endingPopUp, setEndingPopUp] = useState(false);
+  const [damageNumbers, setDamageNumbers] = useState<
+    { id: number; value: number; position: { x: number; y: number } }[]
+  >([]);
 
   //STATS
 
@@ -302,7 +306,18 @@ const Battlefield = () => {
       }, 500);
     });
   };
+  const triggerDamageNumbers = (damage: number, isPlayer: boolean) => {
+    const newDamage = {
+      id: Math.random(),
+      value: damage,
+      position: isPlayer ? { x: 100, y: 150 } : { x: 300, y: 150 },
+    };
+    setDamageNumbers((prev) => [...prev, newDamage]);
 
+    setTimeout(() => {
+      setDamageNumbers((prev) => prev.filter((d) => d.id !== newDamage.id));
+    }, 1000);
+  };
   useEffect(() => {
     if (!battleLog || battleLog.length === 0 || !battleStarts) {
       return;
@@ -317,6 +332,11 @@ const Battlefield = () => {
         logEntry.currentFighter === player.id,
         logEntry
       );
+      if (logEntry.currentFighter === player.id) {
+        triggerDamageNumbers(logEntry.fighter2.health - opponent.health, false);
+      } else {
+        triggerDamageNumbers(logEntry.fighter1.health - player.health, true);
+      }
       await resetToIdle();
       setTimeout(() => {
         if (currentLogIndex + 1 < battleLog.length)
@@ -375,6 +395,18 @@ const Battlefield = () => {
                 opponentEnergy={opponent.energy}
               />
             )}
+            {damageNumbers.map((damage) => (
+              <DamageText
+                key={damage.id}
+                value={damage.value}
+                position={damage.position}
+                onAnimationEnd={() => {
+                  setDamageNumbers((prev) =>
+                    prev.filter((d) => d.id !== damage.id)
+                  );
+                }}
+              />
+            ))}
             <Arena
               playerFighter={playerFighter}
               opponentFighter={opponentFighter}
