@@ -34,7 +34,7 @@ export default function DamageText({
         animation: "damage-float 1s ease-out forwards",
       }}
     >
-      {value > 0 ? `-${value}` : 0}
+      {value}
     </div>
   ) : null;
 }

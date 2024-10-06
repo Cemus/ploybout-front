@@ -43,7 +43,6 @@ function ArenaContent(props: ArenaProps) {
 
   const playerMovePosition = useRef<(arg0: number) => void>(() => {});
   const opponentMovePosition = useRef<(arg0: number) => void>(() => {});
-  console.log(props.playerAnimationState);
   useEffect(() => {
     if (props.playerAnimationState) {
       playerPlayAnimation.current(props.playerAnimationState);

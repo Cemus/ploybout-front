@@ -70,9 +70,11 @@ const Battlefield = () => {
   const [currentLogIndex, setCurrentLogIndex] = useState(0);
 
   const [endingPopUp, setEndingPopUp] = useState(false);
-  const [damageNumbers, setDamageNumbers] = useState<
-    { id: number; value: number; position: { x: number; y: number } }[]
-  >([]);
+  const [damageNumbers, setDamageNumbers] = useState<{
+    id: number;
+    value: number;
+    position: { x: number; y: number };
+  } | null>(null);
 
   //STATS
 
@@ -307,23 +309,24 @@ const Battlefield = () => {
     });
   };
   const triggerDamageNumbers = (damage: number, isPlayer: boolean) => {
+    console.log(damageNumbers);
+    console.log(damage);
     const newDamage = {
       id: Math.random(),
       value: damage,
       position: isPlayer ? { x: 100, y: 150 } : { x: 300, y: 150 },
     };
-    setDamageNumbers((prev) => [...prev, newDamage]);
-
-    setTimeout(() => {
-      setDamageNumbers((prev) => prev.filter((d) => d.id !== newDamage.id));
-    }, 1000);
+    setDamageNumbers(newDamage);
   };
   useEffect(() => {
     if (!battleLog || battleLog.length === 0 || !battleStarts) {
       return;
     }
+    console.log(battleLog);
     const executeTurn = async () => {
       const logEntry = battleLog[currentLogIndex];
+      const prevLogEntry =
+        currentLogIndex > 0 ? battleLog[currentLogIndex - 1] : logEntry;
       const card = logEntry.card;
       const cardType = card.card.type;
 
@@ -332,11 +335,23 @@ const Battlefield = () => {
         logEntry.currentFighter === player.id,
         logEntry
       );
-      if (logEntry.currentFighter === player.id) {
-        triggerDamageNumbers(logEntry.fighter2.health - opponent.health, false);
-      } else {
-        triggerDamageNumbers(logEntry.fighter1.health - player.health, true);
+      console.log("log entry pv1", logEntry.fighter2.health - opponent.health);
+      console.log("log entry pv2", logEntry.fighter2.health - opponent.health);
+      console.log(cardType);
+      if (cardType === "attack") {
+        if (logEntry.currentFighter === player.id) {
+          triggerDamageNumbers(
+            logEntry.fighter2.health - prevLogEntry.fighter2.health,
+            false
+          );
+        } else {
+          triggerDamageNumbers(
+            logEntry.fighter1.health - prevLogEntry.fighter1.health,
+            true
+          );
+        }
       }
+
       await resetToIdle();
       setTimeout(() => {
         if (currentLogIndex + 1 < battleLog.length)
@@ -395,18 +410,16 @@ const Battlefield = () => {
                 opponentEnergy={opponent.energy}
               />
             )}
-            {damageNumbers.map((damage) => (
+            {damageNumbers && (
               <DamageText
-                key={damage.id}
-                value={damage.value}
-                position={damage.position}
+                key={damageNumbers.id}
+                value={damageNumbers.value}
+                position={damageNumbers.position}
                 onAnimationEnd={() => {
-                  setDamageNumbers((prev) =>
-                    prev.filter((d) => d.id !== damage.id)
-                  );
+                  setDamageNumbers(null);
                 }}
               />
-            ))}
+            )}
             <Arena
               playerFighter={playerFighter}
               opponentFighter={opponentFighter}
