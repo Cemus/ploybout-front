@@ -16,7 +16,7 @@ export default function Profile() {
       return;
     }
   }, [profile, stableFetchProfile, selectedFighter]);
-
+  console.log(profile);
   return (
     <div className="flex-1 flex flex-col items-center pb-24 md:pb-0">
       {profile ? (

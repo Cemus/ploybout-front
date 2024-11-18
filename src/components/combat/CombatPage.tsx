@@ -24,21 +24,18 @@ export default function CombatPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("refresh");
     const fetchOpponents = async () => {
       if (!selectedFighter) {
-        console.log("bad");
         stableFetchProfile();
         return;
       }
-      console.log(" good");
       setLoading(true);
       setError(null);
 
       const token = localStorage.getItem("token");
 
       if (!token) {
-        console.log("Pas de token :)");
+        console.error("Pas de token :)");
         return;
       }
 
@@ -68,7 +65,7 @@ export default function CombatPage() {
           errorMessage = (e.response.data as { error?: string }).error;
         }
         if (errorMessage) {
-          console.log(errorMessage);
+          console.error(errorMessage);
           setError(errorMessage);
         }
 

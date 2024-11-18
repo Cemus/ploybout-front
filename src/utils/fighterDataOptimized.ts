@@ -9,7 +9,7 @@ export default function fighterDataOptimized(fighters: FighterInterface[]) {
     const visuals =
       Array.isArray(fighter.visuals) && fighter.visuals.length > 0
         ? fighter.visuals[0]
-        : null;
+        : fighter.visuals;
 
     const stats =
       Array.isArray(fighter.stats) && fighter.stats.length > 0
@@ -27,12 +27,12 @@ export default function fighterDataOptimized(fighters: FighterInterface[]) {
     return {
       ...fighter,
       visuals: {
-        skinColor: visuals?.skin_color ?? "",
-        hairType: visuals?.hair_type ?? "",
-        hairColor: visuals?.hair_color ?? "",
-        eyesType: visuals?.eyes_type ?? "",
-        eyesColor: visuals?.eyes_color ?? "",
-        mouthType: visuals?.mouth_type ?? "",
+        skinColor: visuals.skin_color,
+        hairType: visuals.hair_type,
+        hairColor: visuals.hair_color,
+        eyesType: visuals.eyes_type,
+        eyesColor: visuals.eyes_color,
+        mouthType: visuals.mouth_type,
       },
       stats: {
         hp: stats?.hp ?? 0,

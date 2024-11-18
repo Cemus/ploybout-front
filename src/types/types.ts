@@ -22,12 +22,12 @@ export interface DeckSlotInterface {
 }
 
 export interface VisualsInterface {
-  skin_color: string;
-  hair_type: string;
-  hair_color: string;
-  eyes_type: string;
-  eyes_color: string;
-  mouth_type: string;
+  skinColor: string;
+  hairType: string;
+  hairColor: string;
+  eyesType: string;
+  eyesColor: string;
+  mouthType: string;
 }
 
 export interface ItemInterface {

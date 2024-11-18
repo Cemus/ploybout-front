@@ -16,11 +16,7 @@ const findEquipment = (
 ) => {
   let itemFound: string | null = null;
   equipment.forEach((equipment) => {
-    console.log(equipment);
     if (equipment.equipped === fighterId && equipment.slot === type) {
-      console.log(equipment.item_name);
-      console.log("item");
-      console.log(equipment.item);
       itemFound = equipment.item_name.replace(/\s+/g, "").toLowerCase();
     }
   });
@@ -120,7 +116,7 @@ const loadCharacterModel = async (
     const characterGlb = await loader.loadAsync("/models/player/player.glb");
     const character = characterGlb.scene.children[0];
     const skinMaterial = new THREE.MeshToonMaterial({
-      color: `${visuals.skin_color}`,
+      color: `${visuals.skinColor}`,
     });
 
     if (fighterId !== -1) {
@@ -153,11 +149,11 @@ const loadCharacterModel = async (
 
     // Hairs
     const hairGlb = await loader.loadAsync(
-      `/models/player/hairs/${visuals.hair_type}.glb`
+      `/models/player/hairs/${visuals.hairType}.glb`
     );
     const hairs = hairGlb.scene.children[0] as THREE.Mesh;
     const hairsMaterial = new THREE.MeshToonMaterial({
-      color: `${visuals.hair_color}`,
+      color: `${visuals.hairColor}`,
     });
     if (hairs.children.length > 0) {
       const firstChildren = hairs.children[0] as THREE.Mesh;
@@ -170,7 +166,7 @@ const loadCharacterModel = async (
     const eyesGlb = await loader.loadAsync("/models/player/eyes/eyes.glb");
     const eyes = eyesGlb.scene.children[0] as THREE.Mesh;
     const eyesTexture = textureLoader.load(
-      `    /models/player/eyes/textures/${visuals.eyes_type}/${visuals.eyes_color}.png`
+      `    /models/player/eyes/textures/${visuals.eyesType}/${visuals.eyesColor}.png`
     );
     eyesTexture.flipY = false;
     eyes.material = new THREE.MeshToonMaterial({
@@ -184,7 +180,7 @@ const loadCharacterModel = async (
     const mouthGlb = await loader.loadAsync("/models/player/mouth/mouth.glb");
     const mouth = mouthGlb.scene.children[0] as THREE.Mesh;
     const mouthTexture = textureLoader.load(
-      `    /models/player/mouth/textures/${visuals.mouth_type}.png`
+      `    /models/player/mouth/textures/${visuals.mouthType}.png`
     );
     mouthTexture.flipY = false;
     const mouthMaterial = new THREE.MeshStandardMaterial({

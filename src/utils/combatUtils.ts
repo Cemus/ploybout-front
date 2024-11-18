@@ -79,7 +79,7 @@ export const getValidCard = (
   currentFighterState: FighterState,
   otherFighterState: FighterState
 ): CardInterface | null => {
-  const sortedDeck = currentFighterState.fighter.decks.sort(
+  const sortedDeck = currentFighterState.fighter.deck.sort(
     (a, b) => a.slot - b.slot
   );
 
@@ -148,9 +148,9 @@ const isAtWeaponReach = (
     currentFighterPosition - otherFighterPosition
   );
 
-  currentFighter.equipments.forEach((equipment) => {
-    if (equipment.item.slot === "weapon") {
-      if (distanceBetweenFighters <= equipment.item.range * 3) {
+  currentFighter.equipment.forEach((equip) => {
+    if (equip.item.slot === "weapon") {
+      if (distanceBetweenFighters <= equip.item.range * 3) {
         isCloseEnough = true;
       }
     }
@@ -278,11 +278,7 @@ const calculateDamage = (
   const randomMultiplier = rng() * (1.125 - 0.875) + 0.875;
   const atk = fighter.stats.atk;
   const level = fighter.stats.level;
-  console.log("cardDamage:", cardDamage);
-  console.log("randomMultiplier:", randomMultiplier);
-  console.log("atk:", atk);
-  console.log("level:", level);
-  console.log("seed", seed);
+
   return Math.floor(
     cardDamage * randomMultiplier * (1 + atk * ((level + atk) / 256))
   );
@@ -320,9 +316,9 @@ export const updateFighterStats = (
   const updatedFighter = { ...fighter };
   updatedFighter.stats = { ...fighter.stats };
 
-  updatedFighter.equipments.forEach((equipment: EquipmentInterface) => {
-    if (equipment.equipped === fighter.id) {
-      const item = equipment.item;
+  updatedFighter.equipment.forEach((equip: EquipmentInterface) => {
+    if (equip.equipped === fighter.id) {
+      const item = equip.item;
       updatedFighter.stats.hp += item.hp;
       updatedFighter.stats.atk += item.atk;
       updatedFighter.stats.vit += item.vit;

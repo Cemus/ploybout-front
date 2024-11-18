@@ -47,7 +47,6 @@ export default function CharacterView({
     eyesColor: eyesColor,
     mouthType: mouthType,
   } as VisualsInterface;
-  console.log(controlsRef);
 
   useEffect(() => {
     if (controlsRef.current) {
@@ -57,7 +56,6 @@ export default function CharacterView({
         controlsPosition.z
       );
 
-      console.log("update");
       controlsRef.current.update();
     }
   }, [controlsPosition, areControlsReady, onControlsTargetChange]);

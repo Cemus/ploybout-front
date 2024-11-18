@@ -3,6 +3,7 @@ import axios, { AxiosError } from "axios";
 import useExitSession from "../hooks/useExitSession";
 import { FighterContext, FighterContextType } from "../contexts/FighterContext";
 import { ProfileInterface } from "../types/types";
+import fighterDataOptimized from "../utils/fighterDataOptimized";
 
 export const useProfile = () => {
   const [profile, setProfile] = useState<ProfileInterface | null>(null);
@@ -16,7 +17,7 @@ export const useProfile = () => {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        console.log("Pas de token :)");
+        console.error("Pas de token :)");
         return;
       }
 
@@ -25,19 +26,21 @@ export const useProfile = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response);
-
+      console.log(response.data);
       const profileData: ProfileInterface = response.data;
-      const fightersWithReducedData = profileData.fighters;
+      const fightersWithReducedData = fighterDataOptimized(
+        profileData.fighters
+      );
+
       setProfile({ ...profileData, fighters: fightersWithReducedData });
       setFighters(fightersWithReducedData || null);
       setSelectedFighter(fightersWithReducedData[currentFighter]);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       const e = error as AxiosError;
       const errorMessage =
         (e.response?.data as { error?: string })?.error || "An error occurred";
-      console.log(errorMessage);
+      console.error(errorMessage);
       if (e.response?.status === 401) {
         exitSession();
       }

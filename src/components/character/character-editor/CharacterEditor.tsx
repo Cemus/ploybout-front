@@ -56,7 +56,7 @@ export default function CharacterEditor() {
       console.error("Error during the fighter's creation...", error);
       const e = error as AxiosError;
       const errorMessage = (e.response?.data as { error?: string }).error;
-      console.log(errorMessage);
+      console.error(errorMessage);
       if (e.response?.status === 401) {
         exitSession();
       }

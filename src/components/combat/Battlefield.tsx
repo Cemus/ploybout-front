@@ -91,13 +91,10 @@ const Battlefield = () => {
   //FETCH
 
   useEffect(() => {
-    console.log("fetch");
     const fetchBattleResult = async () => {
       if (!playerFighter || !opponentFighter) {
         return;
       }
-      console.log(playerFighter);
-      console.log(opponentFighter);
 
       try {
         const response = await axios.post(
@@ -109,8 +106,7 @@ const Battlefield = () => {
             },
           }
         );
-        console.log("fetch Ok");
-        console.log(response.data.combat.combat_log);
+
         setBattleLog(response.data.combat.combat_log);
       } catch (error) {
         console.error(
@@ -119,7 +115,7 @@ const Battlefield = () => {
         );
         const e = error as AxiosError;
         const errorMessage = (e.response?.data as { error?: string }).error;
-        console.log(errorMessage);
+        console.error(errorMessage);
         if (e.response?.status === 401) {
           stableExitSession();
         }
@@ -148,11 +144,9 @@ const Battlefield = () => {
   ) => {
     return new Promise<void>((resolve) => {
       let animationDuration = 500;
-      console.log("salut");
-      console.log(cardType);
+
       switch (cardType) {
         case "attack":
-          console.log("attaque");
           animationDuration = 500;
           if (isPlayer) {
             setPlayer((prevPlayer) => ({
@@ -309,8 +303,6 @@ const Battlefield = () => {
     });
   };
   const triggerDamageNumbers = (damage: number, isPlayer: boolean) => {
-    console.log(damageNumbers);
-    console.log(damage);
     const newDamage = {
       id: Math.random(),
       value: damage,
@@ -322,7 +314,7 @@ const Battlefield = () => {
     if (!battleLog || battleLog.length === 0 || !battleStarts) {
       return;
     }
-    console.log(battleLog);
+
     const executeTurn = async () => {
       const logEntry = battleLog[currentLogIndex];
       const prevLogEntry =
@@ -335,9 +327,7 @@ const Battlefield = () => {
         logEntry.currentFighter === player.id,
         logEntry
       );
-      console.log("log entry pv1", logEntry.fighter2.health - opponent.health);
-      console.log("log entry pv2", logEntry.fighter2.health - opponent.health);
-      console.log(cardType);
+
       if (cardType === "attack") {
         if (logEntry.currentFighter === player.id) {
           triggerDamageNumbers(

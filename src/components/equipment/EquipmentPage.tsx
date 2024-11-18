@@ -26,7 +26,7 @@ export default function EquipmentPage() {
     equipmentSlots: EquipmentInterface[]
   ) => {
     const token = localStorage.getItem("token");
-    console.log(equipmentSlots);
+
     try {
       await axios.post(
         "/api/equipment/update",
@@ -40,7 +40,6 @@ export default function EquipmentPage() {
           },
         }
       );
-      console.log("Équipement mis à jour avec succès.");
     } catch (error) {
       console.error("Erreur lors de la mise à jour de l'équipement:", error);
     }
@@ -51,7 +50,6 @@ export default function EquipmentPage() {
       stableFetchProfile();
     }
     if (!currentFighter) {
-      console.log("HEHEHE");
       setCurrentFighter(selectedFighter);
     }
   }, [stableFetchProfile, selectedFighter, currentFighter]);

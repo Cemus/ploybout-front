@@ -19,13 +19,7 @@ export default function ResultsScreen() {
     playerFighter,
     opponentFighter,
   } = location.state as ResultsScreenProps;
-  console.log(
-    playerHealth,
-    opponentHealth,
-    serverBattleResult,
-    playerFighter,
-    opponentFighter
-  );
+
   const [winner, setWinner] = useState<number | undefined>(0);
   const [serverWinner, setServerWinner] = useState<number | undefined>(0);
   useEffect(() => {

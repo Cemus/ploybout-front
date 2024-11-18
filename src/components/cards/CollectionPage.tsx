@@ -14,7 +14,6 @@ export default function CollectionPage() {
     handleEquippedCardSwap,
     saveEquippedCards,
   } = useCardCollection();
-  console.log(cards);
   return (
     <div className="flex-1 flex flex-col items-center justify-between p-4 select-none pb-24 md:pb-0">
       <Collection
