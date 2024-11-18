@@ -10,18 +10,24 @@ interface Stats {
 }
 
 export interface DeckSlotInterface {
+  id: number;
   card: CardInterface;
   card_id: number;
   slot: number;
+  name: string;
+  effects: EffectsInterface[];
+  conditions: ConditionInterface[];
+  type: string;
+  description: string;
 }
 
 export interface VisualsInterface {
-  skinColor: string;
-  hairType: string;
-  hairColor: string;
-  eyesType: string;
-  eyesColor: string;
-  mouthType: string;
+  skin_color: string;
+  hair_type: string;
+  hair_color: string;
+  eyes_type: string;
+  eyes_color: string;
+  mouth_type: string;
 }
 
 export interface ItemInterface {
@@ -48,14 +54,15 @@ export interface EquipmentInterface {
   slot: EquipmentSlotInterface;
   item: ItemInterface;
   equipped: number;
+  item_name: string;
 }
 export interface FighterInterface {
   id: number;
   name: string;
   visuals: VisualsInterface;
   stats: Stats;
-  decks: DeckSlotInterface[];
-  equipments: EquipmentInterface[];
+  deck: DeckSlotInterface[];
+  equipment: EquipmentInterface[];
 }
 
 export interface ProfileInterface {

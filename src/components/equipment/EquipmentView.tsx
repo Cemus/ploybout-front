@@ -31,11 +31,11 @@ export default function EquipmentView({
       ...prevSlots,
       [slot]: item,
     }));
-    const updatedEquipments = currentFighter.equipments.map((equipment) => {
-      if (equipment.item.slot === slot) {
-        return { ...equipment, equipped: currentFighter.id };
+    const updatedEquipments = currentFighter.equipment.map((equip) => {
+      if (equip.item.slot === slot) {
+        return { ...equip, equipped: currentFighter.id };
       }
-      return equipment;
+      return equip;
     });
 
     setCurrentFighter((prevFighter) => {
@@ -53,11 +53,11 @@ export default function EquipmentView({
       [slot]: null,
     }));
 
-    const updatedEquipments = currentFighter.equipments.map((equipment) => {
-      if (equipment.item.slot === slot) {
-        return { ...equipment, equipped: -1 };
+    const updatedEquipments = currentFighter.equipment.map((equip) => {
+      if (equip.item.slot === slot) {
+        return { ...equip, equipped: -1 };
       }
-      return equipment;
+      return equip;
     });
 
     setCurrentFighter((prevFighter) => {
@@ -78,7 +78,7 @@ export default function EquipmentView({
         weapon: null,
       };
 
-      currentFighter.equipments.forEach((equipment: EquipmentInterface) => {
+      currentFighter.equipment.forEach((equipment: EquipmentInterface) => {
         if (equipment.equipped === currentFighter.id) {
           newSlots[equipment.item.slot] = equipment.item;
         }

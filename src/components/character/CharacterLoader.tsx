@@ -16,8 +16,12 @@ const findEquipment = (
 ) => {
   let itemFound: string | null = null;
   equipment.forEach((equipment) => {
-    if (equipment.equipped === fighterId && equipment.item.slot === type) {
-      itemFound = equipment.item.name.replace(/\s+/g, "").toLowerCase();
+    console.log(equipment);
+    if (equipment.equipped === fighterId && equipment.slot === type) {
+      console.log(equipment.item_name);
+      console.log("item");
+      console.log(equipment.item);
+      itemFound = equipment.item_name.replace(/\s+/g, "").toLowerCase();
     }
   });
   return itemFound;
@@ -96,7 +100,6 @@ const equipWeapon = async (
     `/models/weapons/${itemName}.glb`
   )) as GLTF;
   const weapon = weaponGlb.scene.children[0] as THREE.Mesh;
-
   const emptyHand = character.getObjectByName("mixamorigRightHand");
   if (emptyHand) {
     emptyHand.attach(weapon);
@@ -117,7 +120,7 @@ const loadCharacterModel = async (
     const characterGlb = await loader.loadAsync("/models/player/player.glb");
     const character = characterGlb.scene.children[0];
     const skinMaterial = new THREE.MeshToonMaterial({
-      color: `${visuals.skinColor}`,
+      color: `${visuals.skin_color}`,
     });
 
     if (fighterId !== -1) {
@@ -150,11 +153,11 @@ const loadCharacterModel = async (
 
     // Hairs
     const hairGlb = await loader.loadAsync(
-      `/models/player/hairs/${visuals.hairType}.glb`
+      `/models/player/hairs/${visuals.hair_type}.glb`
     );
     const hairs = hairGlb.scene.children[0] as THREE.Mesh;
     const hairsMaterial = new THREE.MeshToonMaterial({
-      color: `${visuals.hairColor}`,
+      color: `${visuals.hair_color}`,
     });
     if (hairs.children.length > 0) {
       const firstChildren = hairs.children[0] as THREE.Mesh;
@@ -167,7 +170,7 @@ const loadCharacterModel = async (
     const eyesGlb = await loader.loadAsync("/models/player/eyes/eyes.glb");
     const eyes = eyesGlb.scene.children[0] as THREE.Mesh;
     const eyesTexture = textureLoader.load(
-      `    /models/player/eyes/textures/${visuals.eyesType}/${visuals.eyesColor}.png`
+      `    /models/player/eyes/textures/${visuals.eyes_type}/${visuals.eyes_color}.png`
     );
     eyesTexture.flipY = false;
     eyes.material = new THREE.MeshToonMaterial({
@@ -181,7 +184,7 @@ const loadCharacterModel = async (
     const mouthGlb = await loader.loadAsync("/models/player/mouth/mouth.glb");
     const mouth = mouthGlb.scene.children[0] as THREE.Mesh;
     const mouthTexture = textureLoader.load(
-      `    /models/player/mouth/textures/${visuals.mouthType}.png`
+      `    /models/player/mouth/textures/${visuals.mouth_type}.png`
     );
     mouthTexture.flipY = false;
     const mouthMaterial = new THREE.MeshStandardMaterial({
@@ -418,7 +421,7 @@ export default memo(function CharacterLoader({
     const loadAndAttachCharacter = async () => {
       setIsCharacterLoaded(false);
       const characterGroup = new THREE.Group();
-
+      console.log(visuals, equipment);
       await loadCharacterModel(fighterId, characterGroup, visuals, equipment);
       stableSetCharacterPosition(characterGroup);
 

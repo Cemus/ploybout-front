@@ -40,8 +40,8 @@ export default function Profile() {
             <div className="lg:flex lg:flex-row-reverse">
               <LastFights fighterId={selectedFighter?.id} />
               <div className="flex flex-col p-4 items-center">
-                {selectedFighter?.decks && (
-                  <EquippedCards equippedCards={selectedFighter?.decks} />
+                {selectedFighter?.deck && (
+                  <EquippedCards equippedCards={selectedFighter?.deck} />
                 )}
               </div>
             </div>

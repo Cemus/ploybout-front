@@ -19,7 +19,7 @@ export default function EquipmentEditor({
 }: EquipmentEditorProps) {
   const [filter, setFilter] = useState("all");
   const [equipmentFiltered, setEquipmentFiltered] = useState(
-    currentFighter.equipments
+    currentFighter.equipment
   );
 
   const filterButtons = [
@@ -53,12 +53,12 @@ export default function EquipmentEditor({
   useEffect(() => {
     setEquipmentFiltered(() => {
       return filter !== "all"
-        ? currentFighter.equipments.filter((equipment) => {
+        ? currentFighter.equipment.filter((equipment) => {
             return equipment.item.slot === filter;
           })
-        : currentFighter.equipments;
+        : currentFighter.equipment;
     });
-  }, [filter, currentFighter.equipments]);
+  }, [filter, currentFighter.equipment]);
 
   return (
     <div className="flex-1 mt-4">

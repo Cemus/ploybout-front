@@ -33,7 +33,7 @@ export default function EquipmentStats({
 
       const itemEquipped: ItemInterface[] = [];
 
-      currentFighter?.equipments.forEach((equipment: EquipmentInterface) => {
+      currentFighter?.equipment.forEach((equipment: EquipmentInterface) => {
         if (equipment.equipped === currentFighter.id) {
           const item = equipment.item;
           itemEquipped.push(item);

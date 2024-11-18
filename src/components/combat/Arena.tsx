@@ -77,7 +77,7 @@ function ArenaContent(props: ArenaProps) {
             characterRef={playerRef}
             position={[props.playerPosition, 0, 0]}
             visuals={props.playerFighter.visuals}
-            equipment={props.playerFighter.equipments}
+            equipment={props.playerFighter.equipment}
             setPlayAnimation={(fn) => (playerPlayAnimation.current = fn)}
             setLoader={props.setLoader}
             isPlayer={true}
@@ -88,7 +88,7 @@ function ArenaContent(props: ArenaProps) {
             characterRef={opponentRef}
             position={[props.opponentPosition, 0, 0]}
             visuals={props.opponentFighter.visuals}
-            equipment={props.opponentFighter.equipments}
+            equipment={props.opponentFighter.equipment}
             setPlayAnimation={(fn) => (opponentPlayAnimation.current = fn)}
             setLoader={props.setLoader}
             isPlayer={false}

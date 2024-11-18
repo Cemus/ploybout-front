@@ -20,18 +20,17 @@ export default function EquippedCards({
       const slots = [];
       for (let i = 0; i < TOTAL_SLOTS; i++) {
         const equippedCard = equippedCards?.find((card) => card.slot === i);
-
         if (equippedCard) {
           if (equippedCard.slot === i) {
             slots.push(
               <Card
                 key={i}
-                id={equippedCard.card.id}
-                name={equippedCard.card.name}
-                description={equippedCard.card.description}
-                type={equippedCard.card.type}
-                effects={equippedCard.card.effects}
-                conditions={equippedCard.card.conditions}
+                id={equippedCard.id}
+                name={equippedCard.name}
+                description={equippedCard.description}
+                type={equippedCard.type}
+                effects={equippedCard.effects}
+                conditions={equippedCard.conditions}
                 slot={equippedCard.slot}
                 quantity={0}
                 isEquipped={true}

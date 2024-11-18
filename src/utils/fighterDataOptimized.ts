@@ -16,13 +16,13 @@ export default function fighterDataOptimized(fighters: FighterInterface[]) {
         ? fighter.stats[0]
         : null;
 
-    const decks = Array.isArray(fighter.decks)
-      ? fighter.decks
-      : Object.values(fighter.decks);
+    const deck = Array.isArray(fighter.deck)
+      ? fighter.deck
+      : Object.values(fighter.deck);
 
-    const equipments = Array.isArray(fighter.equipments)
-      ? fighter.equipments
-      : Object.values(fighter.equipments);
+    const equipment = Array.isArray(fighter.equipment)
+      ? fighter.equipment
+      : Object.values(fighter.equipment);
 
     return {
       ...fighter,
@@ -44,8 +44,8 @@ export default function fighterDataOptimized(fighters: FighterInterface[]) {
         xpMax: stats?.xp_max ?? 0,
         attributePoints: stats?.attribute_points ?? 0,
       },
-      equipments: equipments as EquipmentInterface[],
-      decks: decks as DeckSlotInterface[],
+      equipment: equipment as EquipmentInterface[],
+      deck: deck as DeckSlotInterface[],
     };
   });
 }

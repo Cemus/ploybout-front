@@ -49,7 +49,7 @@ export default function CharacterCanvas({
         position={[0, 0, 0]}
         characterRef={characterRef}
         visuals={fighter.visuals}
-        equipment={fighter.equipments}
+        equipment={fighter.equipment}
       />
       <CameraSetup shot={shot} />
     </Canvas>

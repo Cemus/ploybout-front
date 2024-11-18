@@ -75,10 +75,7 @@ export default function EquipmentPage() {
             type="submit"
             className="button w-1/2 self-center"
             onClick={() =>
-              updateServerEquipment(
-                currentFighter.id,
-                currentFighter.equipments
-              )
+              updateServerEquipment(currentFighter.id, currentFighter.equipment)
             }
           >
             Submit
