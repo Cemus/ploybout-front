@@ -3,7 +3,6 @@ import axios, { AxiosError } from "axios";
 import useExitSession from "../hooks/useExitSession";
 import { FighterContext, FighterContextType } from "../contexts/FighterContext";
 import { ProfileInterface } from "../types/types";
-import fighterDataOptimized from "../utils/fighterDataOptimized";
 
 export const useProfile = () => {
   const [profile, setProfile] = useState<ProfileInterface | null>(null);
@@ -28,13 +27,10 @@ export const useProfile = () => {
       });
       console.log(response.data);
       const profileData: ProfileInterface = response.data;
-      const fightersWithReducedData = fighterDataOptimized(
-        profileData.fighters
-      );
 
-      setProfile({ ...profileData, fighters: fightersWithReducedData });
-      setFighters(fightersWithReducedData || null);
-      setSelectedFighter(fightersWithReducedData[currentFighter]);
+      setProfile({ ...profileData, fighters: profileData.fighters });
+      setFighters(profileData.fighters || null);
+      setSelectedFighter(profileData.fighters[currentFighter]);
     } catch (error) {
       console.error(error);
       const e = error as AxiosError;

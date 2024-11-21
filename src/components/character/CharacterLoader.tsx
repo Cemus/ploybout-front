@@ -17,7 +17,7 @@ const findEquipment = (
   let itemFound: string | null = null;
   equipment.forEach((equipment) => {
     if (equipment.equipped === fighterId && equipment.slot === type) {
-      itemFound = equipment.item_name.replace(/\s+/g, "").toLowerCase();
+      itemFound = equipment.itemName.replace(/\s+/g, "").toLowerCase();
     }
   });
   return itemFound;

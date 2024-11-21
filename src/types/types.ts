@@ -12,7 +12,7 @@ interface Stats {
 export interface DeckSlotInterface {
   id: number;
   card: CardInterface;
-  card_id: number;
+  cardId: number;
   slot: number;
   name: string;
   effects: EffectsInterface[];
@@ -49,12 +49,12 @@ export type EquipmentSlotInterface = "weapon" | "hands" | "feet" | "body";
 
 export interface EquipmentInterface {
   id: number;
-  fighter_id: number;
-  item_id: number;
+  fighterId: number;
+  itemId: number;
   slot: EquipmentSlotInterface;
   item: ItemInterface;
   equipped: number;
-  item_name: string;
+  itemName: string;
 }
 export interface FighterInterface {
   id: number;
@@ -73,13 +73,13 @@ export interface ProfileInterface {
 
 export interface combatLogInterface {
   id: number;
-  loser_id: number;
-  player1_id: number;
-  player2_id: number;
-  updated_at: Date;
-  winner_id: number;
-  created_at: Date;
-  combat_log: JSON;
+  loserId: number;
+  player1Id: number;
+  player2Id: number;
+  updatedAt: Date;
+  winnerId: number;
+  createdAt: Date;
+  combatLog: JSON;
 }
 
 export interface AnimationState {

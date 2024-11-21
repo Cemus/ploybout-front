@@ -44,7 +44,7 @@ export default function useCardCollection() {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-        const cardsData = processCardData(ownedCardsResponse.data);
+        const cardsData = ownedCardsResponse.data;
         const uniqueCardsData = Object.values(cardsData) as CardInterface[];
 
         const equippedCardsResponse = await axios.get(
@@ -63,6 +63,8 @@ export default function useCardCollection() {
 
         setCards(uniqueCardsData);
         setEquippedCards(formattedEquippedCards);
+        console.log("test");
+
         setInitialEquippedCards(
           JSON.parse(JSON.stringify(formattedEquippedCards))
         );
@@ -100,7 +102,6 @@ export default function useCardCollection() {
           },
         }
       );
-
       setInitialEquippedCards(JSON.parse(JSON.stringify(equippedCards)));
     } catch (error) {
       console.error("Error saving equipped cards", error);
@@ -173,7 +174,7 @@ export default function useCardCollection() {
         if (cardToMove) {
           const newEquippedCard: DeckSlotInterface = {
             slot: slot,
-            card_id: cardToMove.id,
+            cardId: cardToMove.id,
             card: { ...cardToMove, isEquipped: true },
           };
           return [...(prevEquippedCards || []), newEquippedCard];
@@ -221,12 +222,7 @@ const processCardData = (cardsData: Data[]) => {
     .filter((item: Data) => item.card)
     .reduce((acc: { [key: string]: CardInterface }, item: Data) => {
       const card: CardInterface = {
-        id: item.card.id,
-        name: item.card.name,
-        description: item.card.description,
-        type: item.card.type,
-        conditions: item.card.conditions,
-        effects: item.card.effects,
+        ...item.card,
         isEquipped: item.equipped === 0 ? false : true,
         quantity: item.equipped === 0 ? 1 : 0,
         context: "collection",
