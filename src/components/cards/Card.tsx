@@ -17,7 +17,6 @@ export default function Card({
   dropToSwapEquippedCards,
 }: CardInterface) {
   const [isGrayed, setIsGrayed] = useState<boolean>(false);
-
   const isDraggable = useCallback(() => {
     switch (context) {
       case "profile":
@@ -82,15 +81,15 @@ export default function Card({
             Damage your opponent for <span className="font-bold">{value}</span>
           </span>
         );
-      case "gain_energy":
+      case "gainEnergy":
         return (
           <div className="flex gap-1">
             <p>
               Gain<span className="font-bold"> {value}</span>
             </p>
             <img
-              src={cardIcons[effect.slice(5, effect.length)]}
-              alt={`${effect.slice(5, effect.length)} cost`}
+              src={cardIcons[effect.slice(4, effect.length).toLowerCase()]}
+              alt={`${effect.slice(4, effect.length)} cost`}
               className="w-6 h-6 mr-1 bg-white rounded-full"
             />
           </div>
@@ -105,7 +104,6 @@ export default function Card({
             cell
           </div>
         );
-        return;
       default:
         return null;
     }

@@ -1,9 +1,9 @@
-import { DeckSlotInterface } from "../../types/types";
+import { CardInterface } from "../../types/types";
 import Card from "./Card";
 import EmptySlot from "./EmptySlot";
 
 interface EquippedCardProps {
-  equippedCards: DeckSlotInterface[] | null;
+  equippedCards: CardInterface[] | null;
   dropToEquip?: (id: number, slot: number) => void;
   dropToSwapEquippedCards?: (slot1: number, slot2: number) => void;
   dropToCollection?: (id: number) => void;

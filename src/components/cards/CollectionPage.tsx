@@ -5,7 +5,7 @@ import EquippedCards from "./EquippedCards";
 
 export default function CollectionPage() {
   const {
-    cards,
+    collection,
     equippedCards,
     initialEquippedCards,
     loading,
@@ -17,7 +17,7 @@ export default function CollectionPage() {
   return (
     <div className="flex-1 flex flex-col items-center justify-between p-4 select-none pb-24 md:pb-0">
       <Collection
-        cards={cards}
+        cards={collection}
         handleDropToCollection={handleDropToCollection}
       />
       <EquippedCards

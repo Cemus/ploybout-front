@@ -1,15 +1,12 @@
-interface EquippedCardProps {
-  slot: number;
-  card_id: number;
-}
+import { CardInterface } from "../types/types";
 
-const extractAttributes = (cards: EquippedCardProps[]) => {
-  return cards.map(({ slot, card_id }) => ({ slot, card_id }));
+const extractAttributes = (cards: CardInterface[]) => {
+  return cards.map(({ slot, id }) => ({ slot, id }));
 };
 
 export const checkEquippedCardsEquality = (
-  equippedCards: EquippedCardProps[] | null,
-  initialEquippedCards: EquippedCardProps[] | null
+  equippedCards: CardInterface[] | null,
+  initialEquippedCards: CardInterface[] | null
 ): boolean => {
   if (!equippedCards || !initialEquippedCards) {
     return false;
@@ -19,11 +16,11 @@ export const checkEquippedCardsEquality = (
   const extractedInitial = extractAttributes([...initialEquippedCards]);
 
   const areEqual = (
-    arr1: { slot: number; card_id: number }[],
-    arr2: { slot: number; card_id: number }[]
+    arr1: { slot: number | undefined; id: number }[],
+    arr2: { slot: number | undefined; id: number }[]
   ) => {
-    arr1.sort((a, b) => a.slot - b.slot || a.card_id - b.card_id);
-    arr2.sort((a, b) => a.slot - b.slot || a.card_id - b.card_id);
+    arr1.sort((a, b) => a.slot! - b.slot! || a.id - b.id);
+    arr2.sort((a, b) => a.slot! - b.slot! || a.id - b.id);
 
     if (arr1.length !== arr2.length) {
       return false;
@@ -31,7 +28,7 @@ export const checkEquippedCardsEquality = (
 
     return arr1.every(
       (item, index) =>
-        item.slot === arr2[index].slot && item.card_id === arr2[index].card_id
+        item.slot === arr2[index].slot && item.id === arr2[index].id
     );
   };
 

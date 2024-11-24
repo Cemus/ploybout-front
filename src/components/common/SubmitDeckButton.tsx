@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { checkEquippedCardsEquality } from "../../utils/checkEquippedCardEquality";
-import { DeckSlotInterface } from "../../types/types";
+import { CardInterface } from "../../types/types";
 
 interface SubmitDeckButtonProps {
   loading: boolean;
-  initialEquippedCards: DeckSlotInterface[] | null;
-  equippedCards: DeckSlotInterface[] | null;
-  saveEquippedCards: (equippedCards: DeckSlotInterface[]) => void;
+  initialEquippedCards: CardInterface[] | null;
+  equippedCards: CardInterface[] | null;
+  saveEquippedCards: (equippedCards: CardInterface[]) => void;
 }
 
 export default function SubmitDeckButton({

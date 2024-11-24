@@ -4,13 +4,7 @@ import useExitSession from "../hooks/useExitSession";
 import { useFighter } from "../hooks/useFighter";
 import { useProfile } from "../hooks/useProfile";
 import { useFn } from "../hooks/useFn";
-import { CardInterface, DeckSlotInterface } from "../types/types";
-
-interface Data {
-  card: CardInterface;
-  card_id: number;
-  equipped: 0 | 1;
-}
+import { CardInterface } from "../types/types";
 
 export default function useCardCollection() {
   const exitSession = useExitSession();
@@ -18,13 +12,13 @@ export default function useCardCollection() {
   const stableFetchProfile = useFn(fetchProfile);
   const stableExitSession = useFn(exitSession);
   const { selectedFighter } = useFighter();
-  const [cards, setCards] = useState<CardInterface[]>([]);
+  const [collection, setCollection] = useState<CardInterface[]>([]);
   const [initialEquippedCards, setInitialEquippedCards] = useState<
-    DeckSlotInterface[] | null
+    CardInterface[] | null
   >(null);
-  const [equippedCards, setEquippedCards] = useState<
-    DeckSlotInterface[] | null
-  >(null);
+  const [equippedCards, setEquippedCards] = useState<CardInterface[] | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -39,35 +33,19 @@ export default function useCardCollection() {
     }
     const fetchCardCollection = async () => {
       try {
-        const ownedCardsResponse = await axios.get("/api/owned-cards", {
+        const collectionResponse = await axios.get("/api/owned-cards", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-        const cardsData = ownedCardsResponse.data;
-        const uniqueCardsData = Object.values(cardsData) as CardInterface[];
 
-        const equippedCardsResponse = await axios.get(
-          `/api/equipped-cards/${selectedFighter?.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const collectionData = collectionResponse.data;
+        console.log("cold", collectionData);
+        setCollection(collectionData);
 
-        const formattedEquippedCards = formatEquippedCards(
-          equippedCardsResponse.data,
-          uniqueCardsData
-        );
-
-        setCards(uniqueCardsData);
-        setEquippedCards(formattedEquippedCards);
-        console.log("test");
-
-        setInitialEquippedCards(
-          JSON.parse(JSON.stringify(formattedEquippedCards))
-        );
+        const equippedCards = profile.fighters[0].deck;
+        setEquippedCards(equippedCards);
+        setInitialEquippedCards(equippedCards);
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des cartes possédées ou équipées:",
@@ -85,7 +63,7 @@ export default function useCardCollection() {
     fetchCardCollection();
   }, [selectedFighter, profile, stableFetchProfile, stableExitSession]);
 
-  async function saveEquippedCards(equippedCards: DeckSlotInterface[]) {
+  async function saveEquippedCards(equippedCards: CardInterface[]) {
     if (!selectedFighter || !profile) {
       return;
     }
@@ -112,14 +90,16 @@ export default function useCardCollection() {
 
   const handleDropToCollection = useCallback(
     (cardId: number, slot: number) => {
+      console.log(cardId);
+      console.log("eq", equippedCards);
       setEquippedCards((prevEquippedCards) => {
         const updatedEquippedCards = (prevEquippedCards || []).filter(
-          (c) => !(c.card.id === cardId && c.slot === slot)
+          (c) => !(c.id === cardId && c.slot === slot)
         );
         return updatedEquippedCards;
       });
 
-      setCards((prevCards) => {
+      setCollection((prevCards) => {
         const existingCardIndex = prevCards.findIndex(
           (card) => card.id === cardId
         );
@@ -127,19 +107,17 @@ export default function useCardCollection() {
         if (existingCardIndex !== -1) {
           const updatedCards = [...prevCards];
           updatedCards[existingCardIndex].quantity = Math.max(
-            updatedCards[existingCardIndex].quantity! + 1,
+            updatedCards[existingCardIndex].quantity + 1,
             0
           );
           return updatedCards;
         } else {
           const cardToMove = equippedCards?.find(
-            (c) => c.card.id === cardId && c.slot === slot
-          )?.card;
+            (c) => c.id === cardId && c.slot === slot
+          );
           if (cardToMove) {
-            return [
-              ...prevCards,
-              { ...cardToMove, isEquipped: false, quantity: 1 },
-            ];
+            const newQuantity = cardToMove.quantity - 1;
+            return [...prevCards, { ...cardToMove, quantity: newQuantity }];
           }
         }
         return prevCards;
@@ -150,39 +128,38 @@ export default function useCardCollection() {
 
   const handleDropToEquipped = useCallback(
     (cardId: number, slot: number) => {
-      setCards((prevCards) => {
+      setCollection((prevCards) => {
         const existingCardIndex = prevCards.findIndex(
           (card) => card.id === cardId
         );
         if (existingCardIndex !== -1) {
           const updatedCards = [...prevCards];
-          if (updatedCards[existingCardIndex].quantity! > 1) {
+          if (updatedCards[existingCardIndex].quantity > 1) {
             updatedCards[existingCardIndex].quantity = Math.max(
-              updatedCards[existingCardIndex].quantity! - 1,
+              updatedCards[existingCardIndex].quantity - 1,
               0
             );
             return updatedCards;
           } else {
-            updatedCards[existingCardIndex].quantity! = 0;
+            updatedCards[existingCardIndex].quantity = 0;
           }
         }
         return prevCards;
       });
 
       setEquippedCards((prevEquippedCards) => {
-        const cardToMove = cards.find((card) => card.id === cardId);
+        const cardToMove = collection.find((card) => card.id === cardId);
         if (cardToMove) {
-          const newEquippedCard: DeckSlotInterface = {
+          const newEquippedCard: CardInterface = {
+            ...cardToMove,
             slot: slot,
-            cardId: cardToMove.id,
-            card: { ...cardToMove, isEquipped: true },
           };
           return [...(prevEquippedCards || []), newEquippedCard];
         }
         return prevEquippedCards;
       });
     },
-    [cards]
+    [collection]
   );
 
   const handleEquippedCardSwap = useCallback((slot1: number, slot2: number) => {
@@ -206,7 +183,7 @@ export default function useCardCollection() {
   }, []);
 
   return {
-    cards,
+    collection,
     equippedCards,
     initialEquippedCards,
     loading,
@@ -216,63 +193,3 @@ export default function useCardCollection() {
     saveEquippedCards,
   };
 }
-
-const processCardData = (cardsData: Data[]) => {
-  return cardsData
-    .filter((item: Data) => item.card)
-    .reduce((acc: { [key: string]: CardInterface }, item: Data) => {
-      const card: CardInterface = {
-        ...item.card,
-        isEquipped: item.equipped === 0 ? false : true,
-        quantity: item.equipped === 0 ? 1 : 0,
-        context: "collection",
-      };
-
-      if (acc[card.id]) {
-        acc[card.id].quantity += 1;
-      } else {
-        acc[card.id] = card;
-      }
-
-      return acc;
-    }, {});
-};
-
-const formatEquippedCards = (
-  equippedCardsData: { slot: number; card_id: number }[],
-  uniqueCardsData: CardInterface[]
-): DeckSlotInterface[] => {
-  const formattedEquippedCards: DeckSlotInterface[] = equippedCardsData.map(
-    (cardData) => {
-      const card = uniqueCardsData.find((c) => c.id === cardData.card_id);
-      if (card) {
-        return {
-          slot: cardData.slot,
-          card_id: cardData.card_id,
-          card: {
-            ...card,
-            isEquipped: true,
-          },
-        };
-      } else {
-        return {
-          slot: cardData.slot,
-          card_id: cardData.card_id,
-          card: {
-            id: cardData.card_id,
-            name: "",
-            description: "",
-            type: "",
-            conditions: [],
-            effects: [],
-            isEquipped: true,
-            quantity: 0,
-            context: "equipped",
-          },
-        };
-      }
-    }
-  );
-
-  return formattedEquippedCards;
-};

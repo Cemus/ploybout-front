@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useFighter } from "../../hooks/useFighter";
 import { useProfile } from "../../hooks/useProfile";
+import { useFn } from "../../hooks/useFn";
 import EquippedCards from "../cards/EquippedCards";
 import CharacterCanvas from "../character/CharacterCanvas";
-import { useFn } from "../../hooks/useFn";
 import LastFights from "./LastFights";
 
 export default function Profile() {
@@ -15,7 +15,7 @@ export default function Profile() {
       stableFetchProfile();
       return;
     }
-  }, [profile, stableFetchProfile, selectedFighter]);
+  }, []);
   console.log(profile);
   return (
     <div className="flex-1 flex flex-col items-center pb-24 md:pb-0">

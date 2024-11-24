@@ -9,16 +9,18 @@ interface Stats {
   attributePoints: number;
 }
 
-export interface DeckSlotInterface {
+export interface CardInterface {
   id: number;
-  card: CardInterface;
-  cardId: number;
-  slot: number;
   name: string;
-  effects: EffectsInterface[];
-  conditions: ConditionInterface[];
-  type: string;
   description: string;
+  type: string;
+  conditions: ConditionInterface[];
+  effects: EffectsInterface[];
+  isEquipped: boolean;
+  context: "equipped" | "collection" | "profile";
+  quantity: number;
+  slot?: number;
+  dropToSwapEquippedCards?: (index1: number, index2: number) => void;
 }
 
 export interface VisualsInterface {
@@ -61,7 +63,7 @@ export interface FighterInterface {
   name: string;
   visuals: VisualsInterface;
   stats: Stats;
-  deck: DeckSlotInterface[];
+  deck: CardInterface[];
   equipment: EquipmentInterface[];
 }
 
@@ -96,20 +98,6 @@ export interface EffectsInterface {
 export interface ConditionInterface {
   value: number;
   type: string;
-}
-
-export interface CardInterface {
-  id: number;
-  name: string;
-  description: string;
-  type: string;
-  conditions: ConditionInterface[];
-  effects: EffectsInterface[];
-  isEquipped: boolean;
-  quantity: number;
-  context: "equipped" | "collection" | "profile";
-  slot?: number;
-  dropToSwapEquippedCards?: (index1: number, index2: number) => void;
 }
 
 export interface CharacterCustomizationInterface {
