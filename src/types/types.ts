@@ -17,7 +17,7 @@ export interface CardInterface {
   conditions: ConditionInterface[];
   effects: EffectsInterface[];
   isEquipped: boolean;
-  context: "equipped" | "collection" | "profile";
+  context: "deck" | "collection" | "profile";
   quantity: number;
   slot?: number;
   dropToSwapEquippedCards?: (index1: number, index2: number) => void;

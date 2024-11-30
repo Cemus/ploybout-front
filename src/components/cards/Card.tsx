@@ -21,7 +21,7 @@ export default function Card({
     switch (context) {
       case "profile":
         return false;
-      case "equipped":
+      case "deck":
         return true;
       case "collection":
         return quantity > 0;
@@ -143,6 +143,9 @@ export default function Card({
           </div>
         ))}
       </div>
+      {context === "collection" && (
+        <p className="text-xl text-white">x {quantity}</p>
+      )}
     </div>
   );
 }

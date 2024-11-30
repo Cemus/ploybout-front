@@ -24,6 +24,7 @@ export default function useCardCollection() {
   useEffect(() => {
     if (!selectedFighter || !profile) {
       stableFetchProfile();
+      return;
     }
   }, [profile, selectedFighter, stableFetchProfile]);
 
@@ -38,14 +39,15 @@ export default function useCardCollection() {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-
         const collectionData = collectionResponse.data;
-        console.log("cold", collectionData);
         setCollection(collectionData);
-
-        const equippedCards = profile.fighters[0].deck;
-        setEquippedCards(equippedCards);
-        setInitialEquippedCards(equippedCards);
+        const equippedCardsCopy = JSON.parse(
+          JSON.stringify(profile.fighters[0].deck)
+        );
+        setEquippedCards(equippedCardsCopy);
+        if (initialEquippedCards === null) {
+          setInitialEquippedCards(equippedCardsCopy);
+        }
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des cartes possédées ou équipées:",
@@ -61,37 +63,13 @@ export default function useCardCollection() {
     };
 
     fetchCardCollection();
-  }, [selectedFighter, profile, stableFetchProfile, stableExitSession]);
+  }, [selectedFighter, profile, stableExitSession]);
 
-  async function saveEquippedCards(equippedCards: CardInterface[]) {
-    if (!selectedFighter || !profile) {
-      return;
-    }
-    setLoading(true);
-    try {
-      const token = localStorage.getItem("token");
-      const fighterId = selectedFighter.id;
-      await axios.post(
-        "/api/equipped-cards",
-        { equippedCards, fighter_id: fighterId, user_id: profile.id },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setInitialEquippedCards(JSON.parse(JSON.stringify(equippedCards)));
-    } catch (error) {
-      console.error("Error saving equipped cards", error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
+  /**
+   * * DROP to COLLECTION
+   */
   const handleDropToCollection = useCallback(
     (cardId: number, slot: number) => {
-      console.log(cardId);
-      console.log("eq", equippedCards);
       setEquippedCards((prevEquippedCards) => {
         const updatedEquippedCards = (prevEquippedCards || []).filter(
           (c) => !(c.id === cardId && c.slot === slot)
@@ -117,7 +95,10 @@ export default function useCardCollection() {
           );
           if (cardToMove) {
             const newQuantity = cardToMove.quantity - 1;
-            return [...prevCards, { ...cardToMove, quantity: newQuantity }];
+            return [
+              ...prevCards,
+              { ...cardToMove, quantity: newQuantity, context: "collection" },
+            ];
           }
         }
         return prevCards;
@@ -126,6 +107,9 @@ export default function useCardCollection() {
     [equippedCards]
   );
 
+  /**
+   * * DROP to DECK
+   */
   const handleDropToEquipped = useCallback(
     (cardId: number, slot: number) => {
       setCollection((prevCards) => {
@@ -153,6 +137,7 @@ export default function useCardCollection() {
           const newEquippedCard: CardInterface = {
             ...cardToMove,
             slot: slot,
+            context: "deck",
           };
           return [...(prevEquippedCards || []), newEquippedCard];
         }
@@ -162,6 +147,9 @@ export default function useCardCollection() {
     [collection]
   );
 
+  /**
+   * * SWAP cards
+   */
   const handleEquippedCardSwap = useCallback((slot1: number, slot2: number) => {
     setEquippedCards((prevEquippedCards) => {
       if (!prevEquippedCards) return [];
@@ -181,6 +169,43 @@ export default function useCardCollection() {
       return updatedCards;
     });
   }, []);
+
+  /**
+   * * POST cards
+   * @param equippedCards
+   * @returns
+   */
+  async function saveEquippedCards(equippedCards: CardInterface[]) {
+    if (!selectedFighter || !profile) {
+      return;
+    }
+    setLoading(true);
+    try {
+      const token = localStorage.getItem("token");
+      const fighterId = selectedFighter.id;
+      const postResponse = await axios.post(
+        "/api/update-cards",
+        {
+          collection,
+          equippedCards,
+          fighter_id: fighterId,
+          user_id: profile.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (postResponse.status === 200) {
+        setInitialEquippedCards(JSON.parse(JSON.stringify(equippedCards)));
+      }
+    } catch (error) {
+      console.error("Error saving equipped cards", error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return {
     collection,

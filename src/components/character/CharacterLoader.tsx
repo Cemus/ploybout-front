@@ -9,14 +9,10 @@ import {
   VisualsInterface,
 } from "../../types/types";
 
-const findEquipment = (
-  equipment: EquipmentInterface[],
-  type: string,
-  fighterId: number
-) => {
+const findEquipment = (equipment: EquipmentInterface[], type: string) => {
   let itemFound: string | null = null;
   equipment.forEach((equipment) => {
-    if (equipment.equipped === fighterId && equipment.slot === type) {
+    if (equipment.slot === type) {
       itemFound = equipment.itemName.replace(/\s+/g, "").toLowerCase();
     }
   });
@@ -121,25 +117,25 @@ const loadCharacterModel = async (
 
     if (fighterId !== -1) {
       //body
-      const equipmentBody = findEquipment(equipment, "body", fighterId);
+      const equipmentBody = findEquipment(equipment, "body");
       if (equipmentBody) {
         await equipBody(loader, character, equipmentBody);
       }
       //gloves
-      const equipmentGloves = findEquipment(equipment, "hands", fighterId);
+      const equipmentGloves = findEquipment(equipment, "hands");
       if (equipmentGloves) {
         await equipHandsOrFeet(loader, character, equipmentGloves, "hands");
       }
 
       //feet
-      const equipmentFeet = findEquipment(equipment, "feet", fighterId);
+      const equipmentFeet = findEquipment(equipment, "feet");
       if (equipmentFeet) {
         await equipHandsOrFeet(loader, character, equipmentFeet, "feet");
       }
 
       //weapon
 
-      const equipmentWeapon = findEquipment(equipment, "weapon", fighterId);
+      const equipmentWeapon = findEquipment(equipment, "weapon");
       if (equipmentWeapon) {
         await equipWeapon(loader, character, equipmentWeapon);
       }
@@ -417,7 +413,6 @@ export default memo(function CharacterLoader({
     const loadAndAttachCharacter = async () => {
       setIsCharacterLoaded(false);
       const characterGroup = new THREE.Group();
-      console.log(visuals, equipment);
       await loadCharacterModel(fighterId, characterGroup, visuals, equipment);
       stableSetCharacterPosition(characterGroup);
 

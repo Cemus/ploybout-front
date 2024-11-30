@@ -49,7 +49,9 @@ export default function Profile() {
         </>
       ) : (
         <div className="flex-1 flex flex-col items-center justify-center gap-2">
-          <p className="animate-pulse text-2xl text-white">Loading profile</p>
+          <p className="animate-pulse text-2xl text-white">
+            Loading your profile
+          </p>
           <div className="loading-circle animate-spin"></div>
         </div>
       )}

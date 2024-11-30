@@ -35,9 +35,7 @@ export default function EquippedCards({
                 quantity={0}
                 isEquipped={true}
                 context={
-                  dropToEquip || dropToSwapEquippedCards
-                    ? "equipped"
-                    : "profile"
+                  dropToEquip || dropToSwapEquippedCards ? "deck" : "profile"
                 }
                 dropToSwapEquippedCards={dropToSwapEquippedCards}
               />
@@ -48,7 +46,7 @@ export default function EquippedCards({
             <EmptySlot
               key={i}
               slot={i}
-              context="equipped"
+              context="deck"
               dropToEquip={dropToEquip}
               dropToSwapEquippedCards={dropToSwapEquippedCards}
             />
@@ -61,9 +59,11 @@ export default function EquippedCards({
   };
   return (
     <>
-      <div className="flex flex-col p-4 items-center">
+      <div className="flex flex-col p-4 justify-center items-center max-w-[100vw]">
         <h3 className="text-white text-xl pb-4">Cards equipped</h3>
-        <div className={`flex items-center justify-center flex-wrap gap-2 `}>
+        <div
+          className={`flex items-center gap-2 max-w-full overflow-x-auto min-h-52`}
+        >
           {equippedCards ? (
             renderEquippedCards()
           ) : (
