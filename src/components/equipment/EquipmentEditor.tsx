@@ -54,7 +54,7 @@ export default function EquipmentEditor({
     setEquipmentFiltered(() => {
       return filter !== "all"
         ? currentFighter.equipment.filter((equipment) => {
-            return equipment.item.slot === filter;
+            return equipment.slot === filter;
           })
         : currentFighter.equipment;
     });

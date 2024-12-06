@@ -31,14 +31,11 @@ export default function useCardCollection() {
     }
     setCollection(profile.cardCollection);
 
-    const equippedCardsCopy = JSON.parse(
-      JSON.stringify(profile.fighters[0].deck)
-    );
-    setEquippedCards(equippedCardsCopy);
+    setEquippedCards(profile.fighters[0].deck);
 
-    if (initialEquippedCards === null) {
-      setInitialEquippedCards(equippedCardsCopy);
-    }
+    setInitialEquippedCards(
+      JSON.parse(JSON.stringify(profile.fighters[0].deck))
+    );
   }, [selectedFighter, profile]);
 
   /**
@@ -178,7 +175,7 @@ export default function useCardCollection() {
       }
     } catch (error) {
       const errorMessage = error as AxiosError;
-      console.error("Error saving equipped cards :", errorMessage);
+      console.error("Error saving equipped cards", errorMessage);
     } finally {
       setLoading(false);
     }

@@ -1,10 +1,6 @@
 import axios from "axios";
 import { useFighter } from "../../hooks/useFighter";
-import {
-  EquipmentInterface,
-  FighterInterface,
-  ItemInterface,
-} from "../../types/types";
+import { FighterInterface, ItemInterface } from "../../types/types";
 import { useEffect, useState } from "react";
 import { useProfile } from "../../hooks/useProfile";
 import { useFn } from "../../hooks/useFn";
@@ -23,7 +19,7 @@ export default function EquipmentPage() {
 
   const updateServerEquipment = async (
     fighterId: number,
-    equipmentSlots: EquipmentInterface[]
+    equipmentSlots: ItemInterface[]
   ) => {
     const token = localStorage.getItem("token");
 
@@ -41,7 +37,7 @@ export default function EquipmentPage() {
         }
       );
     } catch (error) {
-      console.error("Erreur lors de la mise à jour de l'équipement:", error);
+      console.error("Error during the equipment update", error);
     }
   };
 

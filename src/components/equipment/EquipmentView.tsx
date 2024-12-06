@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 import CharacterCanvas from "../character/CharacterCanvas";
-import {
-  EquipmentInterface,
-  FighterInterface,
-  ItemInterface,
-} from "../../types/types";
+import { FighterInterface, ItemInterface } from "../../types/types";
 import EquipmentSlot from "./EquipmentSlot";
 
 interface EquipmentViewProps {
@@ -32,7 +28,7 @@ export default function EquipmentView({
       [slot]: item,
     }));
     const updatedEquipments = currentFighter.equipment.map((equip) => {
-      if (equip.item.slot === slot) {
+      if (equip.slot === slot) {
         return { ...equip, equipped: currentFighter.id };
       }
       return equip;
@@ -53,18 +49,11 @@ export default function EquipmentView({
       [slot]: null,
     }));
 
-    const updatedEquipments = currentFighter.equipment.map((equip) => {
-      if (equip.item.slot === slot) {
-        return { ...equip, equipped: -1 };
-      }
-      return equip;
-    });
-
     setCurrentFighter((prevFighter) => {
       if (!prevFighter) return prevFighter;
       return {
         ...prevFighter,
-        equipments: updatedEquipments,
+        equipment: prevFighter.equipment.filter((equip) => equip.slot !== slot),
       };
     });
   };
@@ -78,10 +67,8 @@ export default function EquipmentView({
         weapon: null,
       };
 
-      currentFighter.equipment.forEach((equipment: EquipmentInterface) => {
-        if (equipment.equipped === currentFighter.id) {
-          newSlots[equipment.item.slot] = equipment.item;
-        }
+      currentFighter.equipment.forEach((equipment: ItemInterface) => {
+        newSlots[equipment.slot] = equipment;
       });
 
       setEquipmentSlots(newSlots);

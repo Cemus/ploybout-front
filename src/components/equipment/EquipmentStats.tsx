@@ -1,9 +1,5 @@
 import { useCallback } from "react";
-import {
-  EquipmentInterface,
-  FighterInterface,
-  ItemInterface,
-} from "../../types/types";
+import { FighterInterface, ItemInterface } from "../../types/types";
 
 interface EquipmentStatsInterface {
   currentFighter: FighterInterface | null;
@@ -31,30 +27,24 @@ export default function EquipmentStats({
         mag: number = fStat.mag,
         range: number = 1;
 
-      const itemEquipped: ItemInterface[] = [];
-
-      currentFighter?.equipment.forEach((equipment: EquipmentInterface) => {
-        if (equipment.equipped === currentFighter.id) {
-          const item = equipment.item;
-          itemEquipped.push(item);
-          hp += item.hp;
-          atk += item.atk;
-          spd += item.spd;
-          mag += item.mag;
-          range += item.range - 1;
-        }
+      currentFighter?.equipment.forEach((equipment: ItemInterface) => {
+        hp += equipment.hp;
+        atk += equipment.atk;
+        spd += equipment.spd;
+        mag += equipment.mag;
+        range += equipment.range - 1;
       });
 
-      if (
-        selectedItem &&
-        useSelectedItem &&
-        !itemEquipped.some((item) => item.id === selectedItem.id)
-      ) {
-        hp += selectedItem.hp;
-        atk += selectedItem.atk;
-        spd += selectedItem.spd;
-        mag += selectedItem.mag;
-        range += selectedItem.range - 1;
+      if (selectedItem && useSelectedItem) {
+        const currentSlotItem = currentFighter?.equipment.find(
+          (equip) => equip.slot === selectedItem.slot
+        ) as ItemInterface | undefined;
+
+        hp += selectedItem.hp - (currentSlotItem?.hp || 0);
+        atk += selectedItem.atk - (currentSlotItem?.atk || 0);
+        spd += selectedItem.spd - (currentSlotItem?.spd || 0);
+        mag += selectedItem.mag - (currentSlotItem?.mag || 0);
+        range += selectedItem.range - (currentSlotItem?.range || 1);
       }
 
       return { hp, atk, spd, mag, range };

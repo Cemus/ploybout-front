@@ -49,22 +49,13 @@ type WeaponTypeInterface = "dagger" | "spear" | "sword" | "axe" | "staff";
 
 export type EquipmentSlotInterface = "weapon" | "hands" | "feet" | "body";
 
-export interface EquipmentInterface {
-  id: number;
-  fighterId: number;
-  itemId: number;
-  slot: EquipmentSlotInterface;
-  item: ItemInterface;
-  equipped: number;
-  itemName: string;
-}
 export interface FighterInterface {
   id: number;
   name: string;
   visuals: VisualsInterface;
   stats: Stats;
   deck: CardInterface[];
-  equipment: EquipmentInterface[];
+  equipment: ItemInterface[];
 }
 
 export interface ProfileInterface {

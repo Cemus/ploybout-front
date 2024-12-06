@@ -1,4 +1,4 @@
-import { EquipmentInterface, ItemInterface } from "../../types/types";
+import { ItemInterface } from "../../types/types";
 import capitalize from "../../utils/capitalize";
 import { useDrop } from "react-dnd";
 
@@ -17,10 +17,9 @@ export default function EquipmentSlot({
 }: EquipmentSlotProps) {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "ITEM",
-    drop: (draggedItem: { equipment: EquipmentInterface }) => {
-      const item = draggedItem.equipment.item;
-      if (type === item.slot) {
-        equipItem(item, type);
+    drop: (draggedItem: ItemInterface) => {
+      if (type === draggedItem.slot) {
+        equipItem(draggedItem, type);
       }
     },
     collect: (monitor) => ({
