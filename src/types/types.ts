@@ -1,7 +1,7 @@
 interface Stats {
   hp: number;
   atk: number;
-  vit: number;
+  spd: number;
   mag: number;
   level: number;
   experience: number;
@@ -39,7 +39,7 @@ export interface ItemInterface {
   atk: number;
   hp: number;
   mag: number;
-  vit: number;
+  spd: number;
   range: number;
   type: WeaponTypeInterface;
   slot: EquipmentSlotInterface;
@@ -71,6 +71,9 @@ export interface ProfileInterface {
   id: number;
   username: string;
   fighters: FighterInterface[];
+  cardCollection: CardInterface[];
+  equipmentCollection: ItemInterface[];
+  currency: number;
 }
 
 export interface combatLogInterface {

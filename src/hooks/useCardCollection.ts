@@ -1,16 +1,13 @@
 import { useEffect, useState, useCallback } from "react";
 import axios, { AxiosError } from "axios";
-import useExitSession from "../hooks/useExitSession";
 import { useFighter } from "../hooks/useFighter";
 import { useProfile } from "../hooks/useProfile";
 import { useFn } from "../hooks/useFn";
 import { CardInterface } from "../types/types";
 
 export default function useCardCollection() {
-  const exitSession = useExitSession();
   const { fetchProfile, profile } = useProfile();
   const stableFetchProfile = useFn(fetchProfile);
-  const stableExitSession = useFn(exitSession);
   const { selectedFighter } = useFighter();
   const [collection, setCollection] = useState<CardInterface[]>([]);
   const [initialEquippedCards, setInitialEquippedCards] = useState<
@@ -32,38 +29,17 @@ export default function useCardCollection() {
     if (!selectedFighter || !profile) {
       return;
     }
-    const fetchCardCollection = async () => {
-      try {
-        const collectionResponse = await axios.get("/api/owned-cards", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        const collectionData = collectionResponse.data;
-        setCollection(collectionData);
-        const equippedCardsCopy = JSON.parse(
-          JSON.stringify(profile.fighters[0].deck)
-        );
-        setEquippedCards(equippedCardsCopy);
-        if (initialEquippedCards === null) {
-          setInitialEquippedCards(equippedCardsCopy);
-        }
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des cartes possédées ou équipées:",
-          error
-        );
-        const e = error as AxiosError;
-        const errorMessage = (e.response?.data as { error?: string }).error;
-        console.log(errorMessage);
-        if (e.response?.status === 401) {
-          stableExitSession();
-        }
-      }
-    };
+    setCollection(profile.cardCollection);
 
-    fetchCardCollection();
-  }, [selectedFighter, profile, stableExitSession]);
+    const equippedCardsCopy = JSON.parse(
+      JSON.stringify(profile.fighters[0].deck)
+    );
+    setEquippedCards(equippedCardsCopy);
+
+    if (initialEquippedCards === null) {
+      setInitialEquippedCards(equippedCardsCopy);
+    }
+  }, [selectedFighter, profile]);
 
   /**
    * * DROP to COLLECTION
@@ -201,7 +177,8 @@ export default function useCardCollection() {
         setInitialEquippedCards(JSON.parse(JSON.stringify(equippedCards)));
       }
     } catch (error) {
-      console.error("Error saving equipped cards", error);
+      const errorMessage = error as AxiosError;
+      console.error("Error saving equipped cards :", errorMessage);
     } finally {
       setLoading(false);
     }

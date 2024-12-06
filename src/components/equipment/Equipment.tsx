@@ -25,7 +25,7 @@ export default function Equipment({
   const [equipmentStat] = useState({
     hp: equipment.item.hp,
     atk: equipment.item.atk,
-    vit: equipment.item.vit,
+    spd: equipment.item.spd,
     mag: equipment.item.mag,
     range: equipment.item.range,
   });

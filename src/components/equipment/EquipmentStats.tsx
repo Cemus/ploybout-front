@@ -27,7 +27,7 @@ export default function EquipmentStats({
       const fStat = currentFighter!.stats;
       let hp: number = fStat.hp,
         atk: number = fStat.atk,
-        spd: number = fStat.vit,
+        spd: number = fStat.spd,
         mag: number = fStat.mag,
         range: number = 1;
 
@@ -39,7 +39,7 @@ export default function EquipmentStats({
           itemEquipped.push(item);
           hp += item.hp;
           atk += item.atk;
-          spd += item.vit;
+          spd += item.spd;
           mag += item.mag;
           range += item.range - 1;
         }
@@ -52,7 +52,7 @@ export default function EquipmentStats({
       ) {
         hp += selectedItem.hp;
         atk += selectedItem.atk;
-        spd += selectedItem.vit;
+        spd += selectedItem.spd;
         mag += selectedItem.mag;
         range += selectedItem.range - 1;
       }
