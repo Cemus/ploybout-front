@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { FighterInterface, ItemInterface } from "../../types/types";
+import { FighterInterface, ItemInterface } from "../../../types/types";
 import Equipment from "./Equipment";
-import EquipmentStats from "./EquipmentStats";
+import EquipmentStats from "../top/EquipmentStats";
 
 interface EquipmentEditorProps {
   currentFighter: FighterInterface;
@@ -10,17 +10,19 @@ interface EquipmentEditorProps {
   >;
   selectedItem: ItemInterface | null;
   setSelectedItem: React.Dispatch<React.SetStateAction<ItemInterface | null>>;
+  currentEquipmentCollection: ItemInterface[] | null;
 }
 
 export default function EquipmentEditor({
   currentFighter,
   selectedItem,
   setSelectedItem,
+  currentEquipmentCollection,
 }: EquipmentEditorProps) {
   const [filter, setFilter] = useState("all");
-  const [equipmentFiltered, setEquipmentFiltered] = useState(
-    currentFighter.equipment
-  );
+  const [equipmentFiltered, setEquipmentFiltered] = useState<
+    ItemInterface[] | null
+  >(currentEquipmentCollection);
 
   const filterButtons = [
     {
@@ -52,13 +54,14 @@ export default function EquipmentEditor({
 
   useEffect(() => {
     setEquipmentFiltered(() => {
+      if (!currentEquipmentCollection) return null;
       return filter !== "all"
-        ? currentFighter.equipment.filter((equipment) => {
-            return equipment.slot === filter;
-          })
-        : currentFighter.equipment;
+        ? currentEquipmentCollection.filter(
+            (equipment) => equipment.slot === filter
+          )
+        : currentEquipmentCollection;
     });
-  }, [filter, currentFighter.equipment]);
+  }, [filter, currentEquipmentCollection]);
 
   return (
     <div className="flex-1 mt-4">
@@ -86,14 +89,14 @@ export default function EquipmentEditor({
           })}
         </div>
         <div>
-          {equipmentFiltered.map((equipment, index) => {
+          {equipmentFiltered?.map((equipment, index) => {
             return (
               <Equipment
                 key={index}
                 equipment={equipment}
                 selectedItem={selectedItem}
                 setSelectedItem={setSelectedItem}
-                fighterId={currentFighter.id}
+                currentFighter={currentFighter}
               />
             );
           })}

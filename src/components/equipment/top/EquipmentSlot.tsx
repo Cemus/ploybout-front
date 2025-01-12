@@ -1,12 +1,12 @@
-import { ItemInterface } from "../../types/types";
-import capitalize from "../../utils/capitalize";
+import { EquipmentSlotInterface, ItemInterface } from "../../../types/types";
+import capitalize from "../../../utils/capitalize";
 import { useDrop } from "react-dnd";
 
 interface EquipmentSlotProps {
   item?: ItemInterface | null;
-  type: string;
-  equipItem: (item: ItemInterface, slot: string) => void;
-  unequipItem: (slot: string) => void;
+  type: EquipmentSlotInterface;
+  equipItem: (item: ItemInterface, slot: EquipmentSlotInterface) => void;
+  unequipItem: (slot: EquipmentSlotInterface) => void;
 }
 
 export default function EquipmentSlot({
@@ -15,11 +15,12 @@ export default function EquipmentSlot({
   equipItem,
   unequipItem,
 }: EquipmentSlotProps) {
-  const [{ isOver }, drop] = useDrop(() => ({
+  const [, drop] = useDrop(() => ({
     accept: "ITEM",
     drop: (draggedItem: ItemInterface) => {
-      if (type === draggedItem.slot) {
-        equipItem(draggedItem, type);
+      const reducedItem = Object.values(draggedItem);
+      if (type === reducedItem[0].slot) {
+        equipItem(reducedItem[0], type);
       }
     },
     collect: (monitor) => ({

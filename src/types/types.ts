@@ -43,11 +43,25 @@ export interface ItemInterface {
   range: number;
   type: WeaponTypeInterface;
   slot: EquipmentSlotInterface;
+  quantity?: number;
 }
 
 type WeaponTypeInterface = "dagger" | "spear" | "sword" | "axe" | "staff";
 
 export type EquipmentSlotInterface = "weapon" | "hands" | "feet" | "body";
+
+export type EquipmentSlots = Record<
+  EquipmentSlotInterface,
+  ItemInterface | null
+>;
+
+export interface EquipmentInterface {
+  body: ItemInterface | null;
+  weapon: ItemInterface | null;
+  hands: ItemInterface | null;
+  feet: ItemInterface | null;
+  [key: string]: ItemInterface | null;
+}
 
 export interface FighterInterface {
   id: number;
@@ -55,7 +69,7 @@ export interface FighterInterface {
   visuals: VisualsInterface;
   stats: Stats;
   deck: CardInterface[];
-  equipment: ItemInterface[];
+  equipment: EquipmentInterface;
 }
 
 export interface ProfileInterface {

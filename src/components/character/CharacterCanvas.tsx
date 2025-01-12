@@ -28,7 +28,6 @@ export default function CharacterCanvas({
 }: CharacterCanvasProps) {
   const characterRef: React.MutableRefObject<THREE.Group | null> =
     useRef<THREE.Group | null>(null);
-  console.log(fighter.equipment);
   return (
     <Canvas shadows>
       <ambientLight intensity={0.9} />

@@ -5,17 +5,21 @@ import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { useFn } from "../../hooks/useFn";
 import {
   AnimationState,
+  EquipmentInterface,
   ItemInterface,
   VisualsInterface,
 } from "../../types/types";
 
-const findEquipment = (equipment: ItemInterface[], type: string) => {
+const findEquipment = (equipment: EquipmentInterface, type: string) => {
   let itemFound: string | null = null;
-  equipment.forEach((equipment) => {
-    if (equipment.slot === type) {
-      itemFound = equipment.name.replace(/\s+/g, "").toLowerCase();
+
+  if (equipment[type]) {
+    const element = equipment[type] as ItemInterface;
+    if (element && element.slot === type) {
+      itemFound = element.name.replace(/\s+/g, "").toLowerCase();
     }
-  });
+  }
+
   return itemFound;
 };
 
@@ -102,7 +106,7 @@ const loadCharacterModel = async (
   fighterId: number,
   characterGroup: THREE.Group,
   visuals: VisualsInterface,
-  equipment: ItemInterface[]
+  equipment: EquipmentInterface
 ) => {
   const loader = new GLTFLoader();
   const textureLoader = new THREE.TextureLoader();
@@ -245,7 +249,7 @@ interface CharacterLoaderProps {
   characterRef: React.MutableRefObject<THREE.Group | null>;
   position: [number, number, number];
   visuals: VisualsInterface;
-  equipment: ItemInterface[];
+  equipment: EquipmentInterface;
   setPlayAnimation?: (
     playAnimation: (animation: AnimationState) => void
   ) => void;
@@ -267,7 +271,6 @@ export default memo(function CharacterLoader({
   isPlayer,
   setMovePosition,
 }: CharacterLoaderProps) {
-  console.log(equipment);
   const { scene } = useThree();
   const clock = new THREE.Clock();
   const [isCharacterLoaded, setIsCharacterLoaded] = useState<boolean>(false);
