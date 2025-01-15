@@ -7,6 +7,7 @@ import CombatPage from "./components/combat/CombatPage";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 import News from "./components/home/NewsPage";
+import Tcu from "./components/home/TcuPage";
 import CharacterEditorPage from "./components/character/character-editor/CharacterEditorPage";
 import CollectionPage from "./components/cards/CollectionPage";
 import Battlefield from "./components/combat/Battlefield";
@@ -27,12 +28,15 @@ function App() {
             <div className="flex flex-col h-full min-h-screen bg-gradient-to-br to-75% from-gray-800 to-gray-900">
               <Header />
               <Routes>
+                {"Main"}
                 <Route path="/" Component={Home} />
+                <Route path="/news" Component={News} />
+                <Route path="/about" Component={News} />
+                <Route path="/gcu" Component={Tcu} />
                 <Route path="/register" Component={Register} />
                 <Route path="/login" Component={Login} />
                 <Route path="/profile" Component={Profile} />
                 <Route path="/arena" Component={CombatPage} />
-                <Route path="/news" Component={News} />
                 <Route path="/collection" Component={CollectionPage} />
                 <Route path="/equipment" Component={EquipmentPage} />
                 <Route path="/battlefield" Component={Battlefield} />

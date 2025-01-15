@@ -1,17 +1,13 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import useExitSession from "../../hooks/useExitSession";
 
 export default function NavBarDesktop() {
-  const exitSession = useExitSession();
   const { isLoggedIn } = useAuth();
-  const handleLogout = () => {
-    exitSession();
-  };
+
   return (
-    <nav className="text-white text-sm lg:text-base">
-      <ul className="flex justify-between ">
-        <div className="flex items-center justify-center gap-2  p-4 ">
+    <nav className="text-white text-sm lg:text-base px-4">
+      <ul className="flex justify-between">
+        <div className="flex items-center justify-center gap-2">
           {isLoggedIn ? (
             <>
               <li className="px-2 select-none">
@@ -29,34 +25,25 @@ export default function NavBarDesktop() {
             </>
           ) : (
             <>
-              <li className="px-2 select-none">
-                <Link to="/">Home</Link>
+              <li>
+                <Link className="custom-nav-button" to="/">
+                  Home
+                </Link>
               </li>
-              <li className="px-2 select-none">
-                <Link to="/news">News</Link>
+              <li>
+                <Link className="custom-nav-button" to="/news">
+                  News
+                </Link>
               </li>
-              <li className="px-2 select-none">
-                <Link to="/about">About</Link>
+              <li>
+                <Link className="custom-nav-button" to="/about">
+                  About
+                </Link>
               </li>
-            </>
-          )}
-        </div>
-        <div className="flex items-center justify-center p-4">
-          {isLoggedIn ? (
-            <>
-              <li className="px-2 select-none">
-                <button onClick={handleLogout} className="text-white">
-                  Logout &rarr;
-                </button>
-              </li>
-            </>
-          ) : (
-            <>
-              <li className="px-2 select-none">
-                <Link to="/register">Register</Link>
-              </li>
-              <li className="px-2 select-none">
-                <Link to="/login">Login</Link>
+              <li>
+                <Link className="custom-nav-button" to="/gcu">
+                  Conditions of Use
+                </Link>
               </li>
             </>
           )}
