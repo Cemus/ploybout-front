@@ -58,6 +58,17 @@
   --white3: #ebede9;
 }
 
+body {
+  font-family: "Poppins", serif;
+}
+
+h1 {
+  font-family: "Bangers", serif;
+}
+
+h2 {
+  font-family: "Alfa Slab One", serif;
+}
 .loading-circle {
   height: 2rem;
   width: 2rem;

@@ -1,6 +1,10 @@
 import axios, { AxiosError } from "axios";
 import { useFighter } from "../../hooks/useFighter";
-import { FighterInterface, ItemInterface } from "../../types/types";
+import {
+  EquipmentInterface,
+  FighterInterface,
+  ItemInterface,
+} from "../../types/types";
 import { useEffect, useState } from "react";
 import { useProfile } from "../../hooks/useProfile";
 import { useFn } from "../../hooks/useFn";
@@ -22,11 +26,9 @@ export default function EquipmentPage() {
 
   const updateServerEquipment = async (
     fighterId: number,
-    equipmentSlots: ItemInterface[]
+    equipmentSlots: EquipmentInterface
   ) => {
-    console.log("test");
     const token = localStorage.getItem("token");
-
     try {
       const response = await axios.post(
         "/api/equipment/update",
@@ -75,7 +77,6 @@ export default function EquipmentPage() {
           <EquipmentView
             currentFighter={currentFighter}
             setCurrentFighter={setCurrentFighter}
-            selectedItem={selectedItem}
             currentEquipmentCollection={currentEquipmentCollection}
             setCurrentEquipmentCollection={setCurrentEquipmentCollection}
           />

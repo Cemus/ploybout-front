@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import useExitSession from "../../hooks/useExitSession";
 
-export default function NavBarLarge() {
+export default function NavBarDesktop() {
   const exitSession = useExitSession();
   const { isLoggedIn } = useAuth();
   const handleLogout = () => {
