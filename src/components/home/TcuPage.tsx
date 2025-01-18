@@ -1,6 +1,6 @@
 export default function TcuPage() {
   return (
-    <main className="flex-1 flex flex-col text-[var(--white3)] ">
+    <main className="flex-1 flex flex-col text-[var(--white3)] p-4 ">
       <section>
         <h1>Terms and Conditions of Use</h1>
         <p>Last Updated: [Date]</p>
