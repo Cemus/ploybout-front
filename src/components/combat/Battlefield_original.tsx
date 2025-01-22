@@ -1,3 +1,5 @@
+/* Unused
+
 import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios, { AxiosError } from "axios";
@@ -350,3 +352,5 @@ const Battlefield = () => {
 };
 
 export default Battlefield;
+
+*/

@@ -12,6 +12,7 @@ export default function OpponentDetail({
   fighter,
   handleFightOpponent,
 }: OpponentDetailProps) {
+  console.log(fighter);
   const [fighterStatsUpdated, setFighterStatsUpdated] =
     useState<FighterInterface | null>(null);
 
@@ -30,7 +31,7 @@ export default function OpponentDetail({
           (
           <span title="Battle rank" className=" cursor-help text-sm ">
             Level
-          </span>{" "}
+          </span>
           {fighter.stats.level})
         </p>
       </div>
@@ -44,7 +45,7 @@ export default function OpponentDetail({
               <>
                 <li>HP : {fighterStatsUpdated.stats.hp}</li>
                 <li>STR : {fighterStatsUpdated.stats.atk}</li>
-                <li>VIT : {fighterStatsUpdated.stats.vit}</li>
+                <li>VIT : {fighterStatsUpdated.stats.spd}</li>
                 <li>WIS : {fighterStatsUpdated.stats.mag}</li>
               </>
             )}

@@ -3,6 +3,7 @@ interface Stats {
   atk: number;
   spd: number;
   mag: number;
+  range: number;
   level: number;
   experience: number;
   xpMax: number;

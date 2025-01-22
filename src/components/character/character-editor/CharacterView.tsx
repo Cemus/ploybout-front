@@ -78,7 +78,7 @@ export default function CharacterView({
         {areControlsReady && (
           <CharacterLoader
             fighterId={-1}
-            equipment={[]}
+            equipment={{ body: null, weapon: null, hands: null, feet: null }}
             position={[0, 0, 0]}
             characterRef={characterRef}
             visuals={visuals}

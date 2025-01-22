@@ -28,7 +28,7 @@ export default function ResultsScreen() {
         setWinner(
           playerHealth > opponentHealth ? playerFighter.id : opponentFighter.id
         );
-        setServerWinner(serverBattleResult?.winner_id);
+        setServerWinner(serverBattleResult?.winnerId);
       }
     };
     getWinner();

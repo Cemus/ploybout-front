@@ -1,16 +1,15 @@
-import seedrandom from "seedrandom";
-
+/* import seedrandom from "seedrandom";
+ */
 import {
-  AnimationState,
+  /*   AnimationState,
   CardInterface,
-  ConditionInterface,
-  EffectsInterface,
-  EquipmentInterface,
+  ConditionInterface, */
+  /*   EffectsInterface, */
   FighterInterface,
-  FighterState,
+  /*   FighterState, */
 } from "../types/types";
 
-export const areConditionsMet = (
+/* export const areConditionsMet = (
   condition: ConditionInterface,
   currentFighterState: FighterState,
   otherFighterState: FighterState
@@ -301,7 +300,7 @@ export const getTurnOrder = (
   return playerInitiative >= opponentInitiative
     ? { first: playerFighter, second: opponentFighter }
     : { first: opponentFighter, second: playerFighter };
-};
+}; */
 
 export const isFightReady = (loader: {
   playerIsReady: boolean;
@@ -316,15 +315,17 @@ export const updateFighterStats = (
   const updatedFighter = { ...fighter };
   updatedFighter.stats = { ...fighter.stats };
 
-  updatedFighter.equipment.forEach((equip: EquipmentInterface) => {
-    if (equip.equipped === fighter.id) {
-      const item = equip.item;
-      updatedFighter.stats.hp += item.hp;
-      updatedFighter.stats.atk += item.atk;
-      updatedFighter.stats.vit += item.vit;
-      updatedFighter.stats.mag += item.mag;
+  for (const key in updatedFighter.equipment) {
+    const element =
+      updatedFighter.equipment[key as keyof typeof updatedFighter.equipment];
+    if (element) {
+      updatedFighter.stats.hp += element.hp;
+      updatedFighter.stats.atk += element.atk;
+      updatedFighter.stats.spd += element.spd;
+      updatedFighter.stats.mag += element.mag;
+      updatedFighter.stats.range += element.range - 1;
     }
-  });
+  }
 
   return updatedFighter;
 };

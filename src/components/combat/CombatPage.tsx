@@ -6,7 +6,6 @@ import useExitSession from "../../hooks/useExitSession";
 import { useFighter } from "../../hooks/useFighter";
 import { FighterInterface } from "../../types/types";
 import { useFn } from "../../hooks/useFn";
-import fighterDataOptimized from "../../utils/fighterDataOptimized";
 import OpponentDetail from "./OpponentDetails";
 
 export default function CombatPage() {
@@ -54,9 +53,7 @@ export default function CombatPage() {
 
         const opponents = fightersResponse.data;
 
-        const opponentsOptimized = fighterDataOptimized(opponents);
-
-        setOpponents(opponentsOptimized);
+        setOpponents(opponents);
       } catch (error) {
         console.error("Error during opponents research:", error);
         const e = error as AxiosError;
