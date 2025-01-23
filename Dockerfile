@@ -1,8 +1,11 @@
-FROM node:18
-WORKDIR /ploybout
+FROM node:latest AS build
+WORKDIR /frontend
 COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
-CMD ["npx", "serve", "-s", "build"]
-EXPOSE 3000
+FROM nginx:alpine
+COPY --from=build /frontend/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 80
