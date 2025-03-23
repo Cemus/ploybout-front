@@ -76,7 +76,7 @@ A multiplayer web browser game
 
 Pour installer ce projet localement, il faut suivre ces étapes simples.
 
-### Prérequis
+### Prerequisites
 
 Installer npm
 
