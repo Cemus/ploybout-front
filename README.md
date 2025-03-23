@@ -2,18 +2,18 @@
 
 <div align="center">
 
-[![Contributors][contributors-shield]](https://github.com/Cemus/ploybout/graphs/contributors)
-[![Forks][forks-shield]](https://github.com/Cemus/ploybout/network/members)
-[![Stargazers][stars-shield]](https://github.com/Cemus/ploybout/stargazers)
-[![Issues][issues-shield]](https://github.com/Cemus/ploybout/issues)
-[![License][license-shield]](https://github.com/Cemus/ploybout/blob/main/LICENSE)
+[![Contributors][contributors-shield]](https://github.com/Cemus/ploybout-front/graphs/contributors)
+[![Forks][forks-shield]](https://github.com/Cemus/ploybout-front/network/members)
+[![Stargazers][stars-shield]](https://github.com/Cemus/ploybout-front/stargazers)
+[![Issues][issues-shield]](https://github.com/Cemus/ploybout-front/issues)
+[![License][license-shield]](https://github.com/Cemus/ploybout-front/blob/main/LICENSE)
 [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/kevin-lionnet/)
 
 </div>
 
 <br />
 <div align="center">
-<a href='https://github.com/Cemus/ploybout'>
+<a href='https://github.com/Cemus/ploybout-front'>
 <img src="public/favicon.svg" alt="Logo" width="80" height="80">
 </a>
 
@@ -22,12 +22,12 @@
 <p align="center">
 A multiplayer web browser game
 <br />
-<a href='https://cemus.github.io/ploybout/'><strong>Work in progress</strong></a>
+<a href='https://cemus.github.io/ploybout-front/'><strong>Work in progress</strong></a>
 <br />
 <br />
-<a href=https://github.com/Cemus/ploybout/issues/new?labels=bug&template=bug-report---.md>Report a bug</a>
+<a href=https://github.com/Cemus/ploybout-front/issues/new?labels=bug&template=bug-report---.md>Report a bug</a>
 &middot;
-<a href=https://github.com/Cemus/ploybout/issues/new?labels=enhancement&template=feature-request---.md>Request a feature</a>
+<a href=https://github.com/Cemus/ploybout-front/issues/new?labels=enhancement&template=feature-request---.md>Request a feature</a>
 </p>
 </div>
 
@@ -53,7 +53,7 @@ A multiplayer web browser game
 
 ## About
 
-[![Ploybout Screenshot](screenshot.png)](https://github.com/Cemus/ploybout)
+[![Ploybout Screenshot](screenshot.png)](https://github.com/Cemus/ploybout-front)
 
 ## Features
 
@@ -89,7 +89,7 @@ npm install npm@latest -g
 1. Cloner le dépôt
 
 ```sh
-git clone https://github.com/Cemus/ploybout.git
+git clone https://github.com/Cemus/ploybout-front.git
 ```
 
 2. Installer les dépendances NPM
@@ -108,20 +108,20 @@ npm run dev
 
 ## Useful links
 
-[Ploybout](https://cemus.github.io/ploybout/)
+[Ploybout](https://cemus.github.io/ploybout-front/)
 
 [Mon GitHub](https://github.com/Cemus)
 
 <p align='right'>(<a href='#readme-top'>Retour en haut</a>)</p>
 
-[contributors-shield]: https://img.shields.io/github/contributors/Cemus/ploybout.svg?style=for-the-badge
-[contributors-url]: https://github.com/Cemus/ploybout/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Cemus/ploybout.svg?style=for-the-badge
-[forks-url]: https://github.com/Cemus/ploybout/network/members
-[stars-shield]: https://img.shields.io/github/stars/Cemus/ploybout.svg?style=for-the-badge
-[stars-url]: https://github.com/Cemus/ploybout/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Cemus/ploybout.svg?style=for-the-badge
-[issues-url]: https://github.com/Cemus/ploybout/issues
-[license-shield]: https://img.shields.io/github/license/Cemus/ploybout?style=for-the-badge
-[license-url]: https://github.com/Cemus/ploybout/blob/main/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/Cemus/ploybout-front.svg?style=for-the-badge
+[contributors-url]: https://github.com/Cemus/ploybout-front/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Cemus/ploybout-front.svg?style=for-the-badge
+[forks-url]: https://github.com/Cemus/ploybout-front/network/members
+[stars-shield]: https://img.shields.io/github/stars/Cemus/ploybout-front.svg?style=for-the-badge
+[stars-url]: https://github.com/Cemus/ploybout-front/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Cemus/ploybout-front.svg?style=for-the-badge
+[issues-url]: https://github.com/Cemus/ploybout-front/issues
+[license-shield]: https://img.shields.io/github/license/Cemus/ploybout-front?style=for-the-badge
+[license-url]: https://github.com/Cemus/ploybout-front/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
