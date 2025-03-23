@@ -110,7 +110,7 @@ npm run dev
 
 [Ploybout](https://cemus.github.io/ploybout-front/)
 
-[Mon GitHub](https://github.com/Cemus)
+[My GitHub](https://github.com/Cemus)
 
 <p align='right'>(<a href='#readme-top'>Retour en haut</a>)</p>
 
