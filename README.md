@@ -14,7 +14,7 @@
 <br />
 <div align="center">
 <a href='https://github.com/Cemus/ploybout-front'>
-<img src="public/favicon.svg" alt="Logo" width="80" height="80">
+<img src="public/favicon/ploybout.svg" alt="Logo" width="80" height="80">
 </a>
 
 <h3 align='center'>Ploybout</h3>
@@ -22,7 +22,7 @@
 <p align="center">
 A multiplayer web browser game
 <br />
-<a href='https://cemus.github.io/ploybout-front/'><strong>Work in progress</strong></a>
+<a href='https://github.com/Cemus/ploybout-front'><strong>Work in progress</strong></a>
 <br />
 <br />
 <a href=https://github.com/Cemus/ploybout-front/issues/new?labels=bug&template=bug-report---.md>Report a bug</a>
