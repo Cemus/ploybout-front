@@ -30,7 +30,7 @@ jobs:
         env:
           NODE_ENV: test
 
-      - name: Wait for server to be ready
+      - name: Attendre le serveur dev...
         run: npx wait-on http://localhost:5173
 
       - name: Runner les tests
@@ -40,7 +40,7 @@ jobs:
           wait-on: http://localhost:5173
           browser: chrome
 
-      - name: Upload Cypress videos and screenshots (en cas d'échec)
+      - name: Upload des screenshots Cypress
         if: failure()
         uses: actions/upload-artifact@v4
         with:

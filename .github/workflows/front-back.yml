@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  cypress-run:
+  front-back-cypress:
     runs-on: ubuntu-latest
 
     steps:
@@ -47,7 +47,7 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
-      - name: Wait for backend to be ready
+      - name: Attendre le back...
         run: npx wait-on http://localhost:3000/health
 
       - name: Lancement du frontend
@@ -55,7 +55,7 @@ jobs:
         env:
           NODE_ENV: test
 
-      - name: Wait for frontend to be ready
+      - name: Attendre le front...
         run: npx wait-on http://localhost:5173
 
       - name: Runner les tests
@@ -65,7 +65,7 @@ jobs:
           wait-on: http://localhost:5173
           browser: chrome
 
-      - name: Upload Cypress videos and screenshots (en cas d'échec)
+      - name: Upload des screens
         if: failure()
         uses: actions/upload-artifact@v4
         with:
