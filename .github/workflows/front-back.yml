@@ -48,7 +48,7 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
       - name: Attendre le back...
-        run: npx wait-on http://localhost:3000/health
+        run: npx wait-on http://localhost:3000/health --timeout 30000
 
       - name: Lancement du frontend
         run: npm run dev &
@@ -56,13 +56,13 @@ jobs:
           NODE_ENV: test
 
       - name: Attendre le front...
-        run: npx wait-on http://localhost:5173
+        run: npx wait-on http://localhost:5173 --timeout 30000
 
       - name: Runner les tests
         uses: cypress-io/github-action@v6
         with:
           start: npm run dev
-          wait-on: http://localhost:5173
+          wait-on: http://localhost:5173 --timeout 30000
           browser: chrome
 
       - name: Upload des screens

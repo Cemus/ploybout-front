@@ -31,13 +31,13 @@ jobs:
           NODE_ENV: test
 
       - name: Attendre le serveur dev...
-        run: npx wait-on http://localhost:5173
+        run: npx wait-on http://localhost:5173 --timeout 30000
 
       - name: Runner les tests
         uses: cypress-io/github-action@v6
         with:
           start: npm run dev
-          wait-on: http://localhost:5173
+          wait-on: http://localhost:5173 --timeout 30000
           browser: chrome
 
       - name: Upload des screenshots Cypress
