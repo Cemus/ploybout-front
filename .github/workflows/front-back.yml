@@ -62,7 +62,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           start: npm run dev
-          wait-on: http://localhost:5173 --timeout 30000
+          wait-on: http://localhost:5173
           browser: chrome
 
       - name: Upload des screens
