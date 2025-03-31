@@ -10,6 +10,7 @@ import { CardInterface, AnimationState } from "../../types/types";
 import DamageText from "./DamageText";
 
 interface CardSpecific {
+  type: string;
   card: CardInterface;
 }
 
@@ -106,7 +107,7 @@ const Battlefield = () => {
             },
           }
         );
-
+        console.log(response.data.combat.combat_log);
         setBattleLog(response.data.combat.combat_log);
       } catch (error) {
         console.error(
@@ -320,7 +321,7 @@ const Battlefield = () => {
       const prevLogEntry =
         currentLogIndex > 0 ? battleLog[currentLogIndex - 1] : logEntry;
       const card = logEntry.card;
-      const cardType = card.card.type;
+      const cardType = card.type;
 
       await triggerAnimation(
         cardType,
@@ -400,7 +401,7 @@ const Battlefield = () => {
                 opponentEnergy={opponent.energy}
               />
             )}
-            {damageNumbers && (
+            {/*             {damageNumbers && (
               <DamageText
                 key={damageNumbers.id}
                 value={damageNumbers.value}
@@ -409,7 +410,7 @@ const Battlefield = () => {
                   setDamageNumbers(null);
                 }}
               />
-            )}
+            )} */}
             <Arena
               playerFighter={playerFighter}
               opponentFighter={opponentFighter}
