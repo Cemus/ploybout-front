@@ -1,0 +1,50 @@
+name: Cypress
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pull le repo
+        uses: actions/checkout@v4
+
+      - name: Installation de Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+
+      - name: Installation des dépendances
+        run: npm install
+
+      - name: Lancement du serveur
+        run: npm run dev &
+        env:
+          NODE_ENV: test
+
+      - name: Wait for server to be ready
+        run: npx wait-on http://localhost:5173
+
+      - name: Runner les tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm run dev
+          wait-on: http://localhost:5173
+          browser: chrome
+
+      - name: Upload Cypress videos and screenshots (en cas d'échec)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/videos
+            cypress/screenshots
