@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Pull le repo du frontend
         uses: actions/checkout@v4
+        with:
+          path: frontend
 
       - name: Pull le repo du backend
         uses: actions/checkout@v4
@@ -52,8 +54,6 @@ jobs:
 
       - name: Lancement du frontend
         run: npm run dev &
-        env:
-          NODE_ENV: test
 
       - name: Attendre le front...
         run: npx wait-on http://localhost:5173
@@ -61,7 +61,6 @@ jobs:
       - name: Runner les tests
         uses: cypress-io/github-action@v6
         with:
-          start: npm run dev
           wait-on: http://localhost:5173
           browser: chrome
 

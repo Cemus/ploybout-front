@@ -81,9 +81,6 @@ h2 {
 h3 {
   font-family: "Poppins", serif;
   font-size: large;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  margin-bottom: 0.5rem;
 }
 
 .loading-circle {
@@ -105,6 +102,10 @@ hr {
   margin: 1rem;
 }
 
+a {
+  user-select: none;
+}
+
 .button {
   color: white;
   font-size: large;
@@ -118,6 +119,11 @@ hr {
     0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  margin: 1rem;
+}
+
+.button:disabled {
+  background-color: rgb(56, 56, 56);
 }
 
 /* F O R M */

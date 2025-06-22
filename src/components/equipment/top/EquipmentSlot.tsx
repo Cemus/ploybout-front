@@ -19,6 +19,7 @@ export default function EquipmentSlot({
     accept: "ITEM",
     drop: (draggedItem: ItemInterface) => {
       const reducedItem = Object.values(draggedItem);
+
       if (type === reducedItem[0].slot) {
         equipItem(reducedItem[0], type);
       }
@@ -29,7 +30,7 @@ export default function EquipmentSlot({
   }));
   return (
     <div
-      className="relative flex items-center justify-center h-16 w-16 lg:h-32 lg:w-32 bg-black rounded-md shadow-md shadow-black"
+      className="relative flex items-center justify-center h-16 w-16 lg:h-24 lg:w-24 bg-black rounded-md shadow-md shadow-black"
       ref={drop}
     >
       {item ? (

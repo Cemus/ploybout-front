@@ -32,9 +32,7 @@ export default function SubmitDeckButton({
       {!loading ? (
         <button
           onClick={handleSave}
-          className={`text-white text-base lg:text-xl py-2 lg:py-4 px-8 bg-green-700 rounded-xl shadow-xl  ${
-            areDecksEqual ? "invisible" : "visible"
-          }`}
+          className={`button  ${areDecksEqual ? "invisible" : "visible"}`}
           disabled={loading}
         >
           Save changes

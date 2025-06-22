@@ -59,7 +59,7 @@ export default function EquippedCards({
   };
   return (
     <>
-      <div className="flex flex-col p-4 justify-center items-center max-w-[100vw]">
+      <div className="flex flex-col p-2 justify-center items-center max-w-[100vw]">
         <h3 className="text-white text-xl pb-4">Cards equipped</h3>
         <div
           className={`flex items-center gap-2 max-w-full overflow-x-auto min-h-52`}

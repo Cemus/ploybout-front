@@ -64,7 +64,7 @@ export default function EquipmentEditor({
   }, [filter, currentEquipmentCollection]);
 
   return (
-    <div className="flex-1 mt-4">
+    <div className="flex-1 mt-4 overflow-x-auto">
       <div>
         <EquipmentStats
           currentFighter={currentFighter}
@@ -88,7 +88,7 @@ export default function EquipmentEditor({
             );
           })}
         </div>
-        <div>
+        <div className="flex">
           {equipmentFiltered?.map((equipment, index) => {
             return (
               <Equipment

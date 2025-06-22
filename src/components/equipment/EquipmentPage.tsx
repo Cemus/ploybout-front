@@ -13,6 +13,7 @@ import EquipmentEditor from "./bottom/EquipmentEditor";
 
 export default function EquipmentPage() {
   const { selectedFighter } = useFighter();
+  const [loading, setLoading] = useState(false);
   const [currentFighter, setCurrentFighter] = useState<FighterInterface | null>(
     null
   );
@@ -30,6 +31,7 @@ export default function EquipmentPage() {
   ) => {
     const token = localStorage.getItem("token");
     try {
+      setLoading(true);
       const response = await axios.post(
         "/api/equipment/update",
         {
@@ -45,6 +47,7 @@ export default function EquipmentPage() {
       if (response.status !== 200) {
         console.error("Unexpected status code:", response.status);
       }
+      setLoading(false);
     } catch (error) {
       const errorMessage = error as AxiosError;
       console.error("Error during the equipment update", errorMessage);
@@ -87,14 +90,16 @@ export default function EquipmentPage() {
             setSelectedItem={setSelectedItem}
             currentEquipmentCollection={currentEquipmentCollection}
           />
+
           <button
             type="submit"
-            className="button w-1/2 self-center"
+            className="button w-96 text-center self-center"
             onClick={() =>
               updateServerEquipment(currentFighter.id, currentFighter.equipment)
             }
+            disabled={loading}
           >
-            Submit
+            {loading ? "Please wait..." : "Submit"}
           </button>
         </>
       )}

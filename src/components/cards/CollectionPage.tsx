@@ -16,7 +16,7 @@ export default function CollectionPage() {
   } = useCardCollection();
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-between p-4 select-none pb-24 md:pb-0">
+    <div className="flex-1 flex flex-col items-center justify-between p-2 select-none pb-24 md:pb-0">
       <Collection
         cards={collection}
         handleDropToCollection={handleDropToCollection}

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDrag } from "react-dnd";
 import cardIcons from "../../utils/cardIcons";
-import cardImages from "../../utils/cardImages";
 import { useDrop } from "react-dnd";
 import { CardInterface } from "../../types/types";
 
@@ -78,14 +77,15 @@ export default function Card({
       case "damage":
         return (
           <span>
-            Damage your opponent for <span className="font-bold">{value}</span>
+            Damage your opponent for{" "}
+            <span className="font-bold text-green-300">{value}</span>
           </span>
         );
       case "gainEnergy":
         return (
           <div className="flex gap-1">
             <p>
-              Gain<span className="font-bold"> {value}</span>
+              Gain<span className="font-bold text-green-300"> {value}</span>
             </p>
             <img
               src={cardIcons[effect.slice(4, effect.length).toLowerCase()]}
@@ -99,7 +99,7 @@ export default function Card({
           <div className="flex gap-1">
             <p>
               Move {value > 0 ? "forward" : "back"} to
-              <span className="font-bold"> {value}</span>
+              <span className="font-bold text-green-300"> {value}</span>
             </p>{" "}
             cell
           </div>
@@ -132,10 +132,9 @@ export default function Card({
     >
       <header className="flex w-full justify-between items-center p-2 bg-slate-900 min-h-8 lg:min-h-16 text-white font-semibold rounded-lg ">
         <div className="flex items-center">{getCost()}</div>
-        <h3 className="flex-grow text-center">{name}</h3>
+        <h3 className="flex-grow text-xs md:text-xl text-center">{name}</h3>
       </header>
 
-      <img src={cardImages[id.toString()]} alt={`${name}'s image`} />
       <div className="flex flex-col h-1/3 bg-slate-900 bg-opacity-50 w-full justify-center items-center rounded-sm">
         {effects.map((effect, index) => (
           <div className="flex" key={index}>
@@ -143,9 +142,11 @@ export default function Card({
           </div>
         ))}
       </div>
-      {context === "collection" && (
-        <p className="text-xl text-white">x {quantity}</p>
-      )}
+      <footer>
+        {context === "collection" && (
+          <p className="md:text-xl text-white">x {quantity}</p>
+        )}
+      </footer>
     </div>
   );
 }

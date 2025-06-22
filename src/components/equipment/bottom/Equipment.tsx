@@ -71,7 +71,7 @@ export default function Equipment({
       }
     >
       <p className="bg-slate-800 w-full">{equipment.name}</p>
-      <div className="w-16 h-16">
+      <div className="w-16 h-16 flex-1">
         <img src={getImage(equipment.type)} alt={equipment.name} />
       </div>
       <div className="bg-slate-800 w-full">{displayStat()}</div>

@@ -22,8 +22,6 @@ export default function EmptySlot({
       context: "deck" | "collection";
       slot: number;
     }) => {
-      console.log("card", card);
-      console.log("slot", context);
       if (dropToEquip && dropToSwapEquippedCards) {
         card.context === "collection" && context === "deck"
           ? dropToEquip(card.id, slot)
@@ -42,7 +40,7 @@ export default function EmptySlot({
   return (
     <div
       ref={drop}
-      className={`flex items-center justify-center  lg:text-base lg:w-48 lg:h-72 border-2 border-dashed border-slate-200 rounded-md ${
+      className={`flex items-center text-center justify-center w-32 h-32  md:text-base md:w-48 md:h-72 border-2 border-dashed border-slate-200 rounded-md ${
         isOver ? "bg-green-500" : "bg-slate-900"
       } select-none`}
     >
