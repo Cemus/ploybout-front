@@ -326,6 +326,5 @@ export const updateFighterStats = (
       updatedFighter.stats.range += element.range - 1;
     }
   }
-
   return updatedFighter;
 };

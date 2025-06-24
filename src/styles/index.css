@@ -104,6 +104,10 @@ hr {
 
 a {
   user-select: none;
+  transition-duration: 125ms;
+}
+a:hover {
+  color: var(--yellow5);
 }
 
 .button {
@@ -205,5 +209,10 @@ a {
 
 .custom-logout-button {
   background-color: #a53030;
+  border-radius: 0.25rem;
+}
+
+.custom-logout-button:hover {
+  background-color: var(--red4);
   border-radius: 0.25rem;
 }

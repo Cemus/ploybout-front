@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation /* useNavigate */ } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 import useExitSession from "../../hooks/useExitSession";
 import { Arena } from "./Arena";
@@ -7,7 +7,7 @@ import { useFn } from "../../hooks/useFn";
 import HealthBars from "./HealthBars";
 import { isFightReady, updateFighterStats } from "../../utils/combatUtils";
 import { CardInterface, AnimationState } from "../../types/types";
-import DamageText from "./DamageText";
+import ResultsScreen from "./ResultsScreen";
 
 interface CardSpecific {
   type: string;
@@ -39,6 +39,7 @@ const Battlefield = () => {
   const [playerFighter, setPlayerFighter] = useState({
     ...location.state?.player,
   });
+  console.log(playerFighter);
   const [opponentFighter, setOpponentFighter] = useState({
     ...location.state?.opponent,
   });
@@ -60,7 +61,7 @@ const Battlefield = () => {
   });
 
   const [battleStarts, setBattleStarts] = useState<boolean>(false);
-  const [battleEnds] = useState<boolean>(false);
+  const [battleEnds, setBattleEnds] = useState<boolean>(false);
 
   const [loader, setLoader] = useState<{
     playerIsReady: boolean;
@@ -68,14 +69,11 @@ const Battlefield = () => {
   }>({ playerIsReady: false, opponentIsReady: false });
 
   const [battleLog, setBattleLog] = useState<CombatLog[]>([]);
+  const [winner, setWinner] = useState<number | null>(null);
+
   const [currentLogIndex, setCurrentLogIndex] = useState(0);
 
   const [endingPopUp, setEndingPopUp] = useState(false);
-  const [damageNumbers, setDamageNumbers] = useState<{
-    id: number;
-    value: number;
-    position: { x: number; y: number };
-  } | null>(null);
 
   //STATS
 
@@ -107,8 +105,8 @@ const Battlefield = () => {
             },
           }
         );
-        console.log(response.data.combat.combat_log);
         setBattleLog(response.data.combat.combat_log);
+        setWinner(response.data.combat.winner_id);
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des cartes possédées ou équipées:",
@@ -279,7 +277,37 @@ const Battlefield = () => {
       }, animationDuration);
     });
   };
+  useEffect(() => {
+    if (
+      player.health <= 0 &&
+      player.animationState.currentAnimation !== "defeat"
+    ) {
+      setPlayer((prev) => ({
+        ...prev,
+        animationState: {
+          prevAnimation: prev.animationState.currentAnimation,
+          currentAnimation: "defeat",
+          id: prev.animationState.id + 1,
+        },
+      }));
+    }
+  }, [player.health, player.animationState.currentAnimation]);
 
+  useEffect(() => {
+    if (
+      opponent.health <= 0 &&
+      opponent.animationState.currentAnimation !== "defeat"
+    ) {
+      setOpponent((prev) => ({
+        ...prev,
+        animationState: {
+          prevAnimation: prev.animationState.currentAnimation,
+          currentAnimation: "defeat",
+          id: prev.animationState.id + 1,
+        },
+      }));
+    }
+  }, [opponent.health, opponent.animationState.currentAnimation]);
   const resetToIdle = async () => {
     return new Promise<void>((resolve) => {
       setTimeout(() => {
@@ -303,14 +331,6 @@ const Battlefield = () => {
       }, 500);
     });
   };
-  const triggerDamageNumbers = (damage: number, isPlayer: boolean) => {
-    const newDamage = {
-      id: Math.random(),
-      value: damage,
-      position: isPlayer ? { x: 100, y: 150 } : { x: 300, y: 150 },
-    };
-    setDamageNumbers(newDamage);
-  };
   useEffect(() => {
     if (!battleLog || battleLog.length === 0 || !battleStarts) {
       return;
@@ -318,8 +338,6 @@ const Battlefield = () => {
 
     const executeTurn = async () => {
       const logEntry = battleLog[currentLogIndex];
-      const prevLogEntry =
-        currentLogIndex > 0 ? battleLog[currentLogIndex - 1] : logEntry;
       const card = logEntry.card;
       const cardType = card.type;
 
@@ -329,24 +347,13 @@ const Battlefield = () => {
         logEntry
       );
 
-      if (cardType === "attack") {
-        if (logEntry.currentFighter === player.id) {
-          triggerDamageNumbers(
-            logEntry.fighter2.health - prevLogEntry.fighter2.health,
-            false
-          );
-        } else {
-          triggerDamageNumbers(
-            logEntry.fighter1.health - prevLogEntry.fighter1.health,
-            true
-          );
-        }
-      }
-
       await resetToIdle();
       setTimeout(() => {
-        if (currentLogIndex + 1 < battleLog.length)
+        if (currentLogIndex + 1 < battleLog.length) {
           setCurrentLogIndex(currentLogIndex + 1);
+        } else {
+          setBattleEnds(true);
+        }
       }, 1000);
     };
 
@@ -357,40 +364,33 @@ const Battlefield = () => {
   useEffect(() => {
     if (battleEnds) {
       setTimeout(() => {
+        console.log(winner);
+        console.log(playerFighter.id);
         setEndingPopUp(true);
-      }, 5000);
+      }, 1000);
     }
   }, [battleEnds]);
 
-  // AFTER BATTLE
-  /*   const handleContinue = () => {
-    navigate("/results", {
-      state: {
-        playerHealth,
-        opponentHealth,
-        serverBattleResult,
-        playerFighter,
-        opponentFighter,
-      },
-    });
-  }; */
   return (
     <div className="flex-1 flex text-white text-2xl pb-24 md:pb-0">
       {endingPopUp ? (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <dialog open className="m-auto p-4 bg-white rounded shadow-lg">
-            <button
-              /*               onClick={handleContinue} */
-              className="px-4 py-2 bg-blue-500 text-white rounded"
-            >
-              Continue
-            </button>
+          <div
+            className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm"
+            aria-hidden="true"
+          ></div>
+
+          <dialog
+            open
+            className="relative z-10 m-auto p-4 bg-white rounded shadow-lg max-w-md w-full"
+          >
+            <ResultsScreen battleResult={winner === playerFighter.id} />
           </dialog>
         </div>
       ) : (
         <>
-          <div className="flex-1 flex flex-col justify-center">
-            {battleStarts && (
+          <div className="flex-1 flex flex-col justify-center overflow-y-hidden p-4">
+            {battleStarts ? (
               <HealthBars
                 playerHealth={player.health}
                 opponentHealth={opponent.health}
@@ -400,17 +400,9 @@ const Battlefield = () => {
                 playerEnergy={player.energy}
                 opponentEnergy={opponent.energy}
               />
+            ) : (
+              <HealthBars />
             )}
-            {/*             {damageNumbers && (
-              <DamageText
-                key={damageNumbers.id}
-                value={damageNumbers.value}
-                position={damageNumbers.position}
-                onAnimationEnd={() => {
-                  setDamageNumbers(null);
-                }}
-              />
-            )} */}
             <Arena
               playerFighter={playerFighter}
               opponentFighter={opponentFighter}

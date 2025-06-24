@@ -5,7 +5,7 @@ export default function NavBarDesktop() {
   const { isLoggedIn } = useAuth();
 
   return (
-    <nav className="text-white text-sm lg:text-base p-4">
+    <nav className="text-white text-sm md:text-lg p-4">
       <ul className="flex justify-between">
         <div className="flex items-center justify-center gap-2 ">
           {isLoggedIn ? (

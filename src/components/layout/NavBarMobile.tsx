@@ -54,7 +54,7 @@ export default function NavBarMobile() {
             <li className="text-center">
               <button
                 onClick={handleLogout}
-                className="block p-2 bg-red-600 rounded-md hover:bg-red-500 w-full"
+                className="block p-2 bg-[var(--red3)] rounded-md hover:bg-[var(--red4)] w-full"
               >
                 <div className="text-lg">🚪</div>
                 <span>Logout</span>

@@ -31,7 +31,7 @@ export default function Equipment({
     range: equipment.range,
   });
 
-  // Refactor displayStat for readability
+  //refactor displayStat
   const displayStat = () =>
     Object.entries(equipmentStat)
       .filter(([, value]) => value !== 0)
@@ -41,7 +41,7 @@ export default function Equipment({
         </p>
       ));
 
-  // Check if item is equipped
+  //check if item is equipped
   const isItemEquipped = () =>
     currentFighter.equipment[equipment.slot]?.id === equipment.id;
 

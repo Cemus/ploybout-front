@@ -13,9 +13,9 @@ export default function Collection({
 }: CollectionProps) {
   return (
     <div className="flex flex-col items-center max-w-[100vw]">
-      <h3 className="text-white text-xl pb-4">Your card collection</h3>
+      <h3 className="text-white text-xl pb-4">Collection</h3>
       {cards ? (
-        <div className="flex gap-2 items-center overflow-x-auto max-w-full min-h-52">
+        <div className="flex gap-2 items-center overflow-x-auto max-w-full min-h-52 p-8 ">
           {cards.map((card: CardInterface, index: number) => (
             <div
               key={index}
@@ -24,11 +24,13 @@ export default function Collection({
               <Card {...card} />
             </div>
           ))}
-          <EmptySlot
-            dropToCollection={handleDropToCollection}
-            slot={0}
-            context="collection"
-          />{" "}
+          <div className="flex-none">
+            <EmptySlot
+              dropToCollection={handleDropToCollection}
+              slot={0}
+              context="collection"
+            />{" "}
+          </div>
         </div>
       ) : (
         <div className="flex-1 flex flex-col items-center justify-center gap-2">

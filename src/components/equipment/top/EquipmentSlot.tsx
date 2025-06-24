@@ -19,7 +19,6 @@ export default function EquipmentSlot({
     accept: "ITEM",
     drop: (draggedItem: ItemInterface) => {
       const reducedItem = Object.values(draggedItem);
-
       if (type === reducedItem[0].slot) {
         equipItem(reducedItem[0], type);
       }

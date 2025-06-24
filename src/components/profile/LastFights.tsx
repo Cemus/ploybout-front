@@ -44,7 +44,7 @@ export default function LastFights({
         );
         const e = error as AxiosError;
         const errorMessage = (e.response?.data as { error?: string })?.error;
-        console.log(errorMessage);
+        console.error(errorMessage);
         if (e.response?.status === 401) {
           stableExitSession();
         }
@@ -60,6 +60,7 @@ export default function LastFights({
     }
 
     return lastFights.map((fight: LastFightsProps, index: number) => {
+      const draw = fight.winner_id === null;
       const isPlayerWinner = fight.winner_id === fighterId;
       const opponentUsername =
         fighterId === fight.fighter1_id
@@ -69,11 +70,17 @@ export default function LastFights({
       return (
         <div
           key={index}
-          className={`p-2 w-full text-center ${
+          className={`p-2 w-full text-lg px-4 text-center ${
             isPlayerWinner ? "bg-green-500" : "bg-red-500"
-          } rounded-lg`}
+          } rounded-lg cursor-pointer transition-transform duration-200 ease-in-out
+    hover:scale-110 hover:shadow-lg hover:z-10`}
         >
-          {isPlayerWinner ? (
+          {draw ? (
+            <p>
+              Draw against
+              <span className="text-xl font-bold">{opponentUsername}</span>
+            </p>
+          ) : isPlayerWinner ? (
             <p>
               You smashed{" "}
               <span className="text-xl font-bold">{opponentUsername}</span>
@@ -94,7 +101,7 @@ export default function LastFights({
   return (
     <aside className="flex flex-col p-4 items-center">
       <h3 className="text-white text-xl p-4">Fights history</h3>
-      <div className="flex flex-col items-center justify-center gap-1 w-full">
+      <div className="flex flex-col items-center justify-center gap-3 ">
         {renderLastFights()}
       </div>
     </aside>

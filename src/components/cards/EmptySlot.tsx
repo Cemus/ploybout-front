@@ -40,9 +40,11 @@ export default function EmptySlot({
   return (
     <div
       ref={drop}
-      className={`flex items-center text-center justify-center w-32 h-32  md:text-base md:w-48 md:h-72 border-2 border-dashed border-slate-200 rounded-md ${
-        isOver ? "bg-green-500" : "bg-slate-900"
-      } select-none`}
+      className={`flex items-center justify-center text-center 
+                  w-32 h-48 lg:w-48 lg:h-72 
+                  border-2 border-dashed border-slate-200 
+                  rounded-md select-none 
+                  ${isOver ? "bg-green-500" : "bg-slate-900"}`}
     >
       <span className="text-slate-200">Empty Slot</span>
     </div>

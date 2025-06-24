@@ -39,16 +39,34 @@ export default function EquipmentView({
       [slot]: item,
     }));
 
-    const updatedEquipment: EquipmentInterface = {
-      ...currentFighter.equipment,
-      [slot]: item,
-    };
+    setCurrentFighter((prevFighter) => {
+      if (!prevFighter) {
+        console.log("merde");
+        return prevFighter;
+      }
 
-    setCurrentFighter((prevFighter) =>
-      prevFighter
-        ? { ...prevFighter, equipment: updatedEquipment }
-        : prevFighter
-    );
+      const updatedEquipment: EquipmentInterface = {
+        ...prevFighter.equipment,
+        [slot]: item,
+      };
+
+      return {
+        ...prevFighter,
+        equipment: updatedEquipment,
+      };
+    });
+
+    setCurrentEquipmentCollection((prevCollection) => {
+      if (!prevCollection) return null;
+
+      return prevCollection
+        .map((equip) =>
+          equip.id === item.id && equip.quantity
+            ? { ...equip, quantity: equip.quantity - 1 }
+            : equip
+        )
+        .filter((equip) => !equip.quantity || equip.quantity > 0);
+    });
   };
 
   const unequipItem = (slot: EquipmentSlotInterface) => {
@@ -67,11 +85,16 @@ export default function EquipmentView({
       [slot]: null,
     };
 
-    setCurrentFighter((prevFighter) =>
-      prevFighter
+    setCurrentFighter((prevFighter) => {
+      console.log(
+        prevFighter
+          ? { ...prevFighter, equipment: updatedEquipment }
+          : prevFighter
+      );
+      return prevFighter
         ? { ...prevFighter, equipment: updatedEquipment }
-        : prevFighter
-    );
+        : prevFighter;
+    });
 
     const updatedCurrentEquipmentCollection = currentEquipmentCollection?.map(
       (equip) =>

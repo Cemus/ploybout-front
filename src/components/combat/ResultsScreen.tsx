@@ -1,50 +1,41 @@
-import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { combatLogInterface, FighterInterface } from "../../types/types";
+import { useNavigate } from "react-router-dom";
 
 interface ResultsScreenProps {
-  playerHealth: number;
-  opponentHealth: number;
-  serverBattleResult: combatLogInterface | null;
-  playerFighter: FighterInterface;
-  opponentFighter: FighterInterface;
+  battleResult: boolean | null; // true = gagné, false = perdu, null = ex aequo
 }
 
-export default function ResultsScreen() {
-  const location = useLocation();
-  const {
-    playerHealth,
-    opponentHealth,
-    serverBattleResult,
-    playerFighter,
-    opponentFighter,
-  } = location.state as ResultsScreenProps;
+export default function ResultsScreen({ battleResult }: ResultsScreenProps) {
+  const navigate = useNavigate();
 
-  const [winner, setWinner] = useState<number | undefined>(0);
-  const [serverWinner, setServerWinner] = useState<number | undefined>(0);
-  useEffect(() => {
-    const getWinner = () => {
-      if (playerHealth <= 0 || opponentHealth <= 0) {
-        setWinner(
-          playerHealth > opponentHealth ? playerFighter.id : opponentFighter.id
-        );
-        setServerWinner(serverBattleResult?.winnerId);
-      }
-    };
-    getWinner();
-  }, []);
+  const handleGoToProfile = () => {
+    navigate("/profile");
+  };
+
+  let message;
+  let colorClass;
+
+  if (battleResult === true) {
+    message = "You win!";
+    colorClass = "text-[var(--green2)]";
+  } else if (battleResult === false) {
+    message = "You lose...";
+    colorClass = "text-[var(--red3)]";
+  } else {
+    message = "ex æquo.";
+    colorClass = "text-[var(--yellow2)]";
+  }
 
   return (
-    <div className="flex-1 flex items-center justify-center">
-      {winner === serverWinner ? (
-        winner === playerFighter.id ? (
-          <h1>You win!</h1>
-        ) : (
-          <h1>You lose!</h1>
-        )
-      ) : (
-        <h1>CHEATED</h1>
-      )}
+    <div className="flex flex-col items-center justify-center p-8 space-y-6">
+      <h1 className={`text-4xl font-bold font-logo ${colorClass}`}>
+        {message}
+      </h1>
+      <button
+        onClick={handleGoToProfile}
+        className="px-6 py-3 bg-[var(--green2)] text-white rounded-lg transition hover:bg-[var(--green3)]"
+      >
+        Continue
+      </button>
     </div>
   );
 }

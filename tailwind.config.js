@@ -3,7 +3,13 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        normal: ["Poppins", "serif"],
+        title: ["Alfa Slab One", "serif"],
+        logo: ["Bangers", "serif"],
+      },
+    },
   },
   plugins: [],
 };

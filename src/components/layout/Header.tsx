@@ -13,7 +13,7 @@ export default function Header() {
   };
   const currentWidth = useWindowWidth();
   return (
-    <header className="bg-black bg-opacity-35">
+    <header className="bg-black bg-opacity-35 md:text-lg">
       {currentWidth > 768 && (
         <>
           <div className="flex justify-between">

@@ -18,7 +18,7 @@ export default function Profile() {
   }, [profile, selectedFighter, stableFetchProfile]);
   console.log(profile);
   return (
-    <div className="flex-1 flex flex-col items-center pb-24 md:pb-0">
+    <div className="flex-1 flex flex-col items-center pb-24 md:pb-0 overflow-hidden">
       {profile ? (
         <>
           <h2 className="text-white text-xl p-4">
@@ -37,7 +37,7 @@ export default function Profile() {
                 <p>No fighter selected</p>
               )}
             </div>
-            <div className="lg:flex lg:flex-row-reverse">
+            <div className="xl:flex xl:flex-row-reverse">
               <LastFights fighterId={selectedFighter?.id} />
               <div className="flex flex-col p-4 items-center">
                 {selectedFighter?.deck && (

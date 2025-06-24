@@ -23,33 +23,36 @@ export default function EquippedCards({
         if (equippedCard) {
           if (equippedCard.slot === i) {
             slots.push(
-              <Card
-                key={i}
-                id={equippedCard.id}
-                name={equippedCard.name}
-                description={equippedCard.description}
-                type={equippedCard.type}
-                effects={equippedCard.effects}
-                conditions={equippedCard.conditions}
-                slot={equippedCard.slot}
-                quantity={0}
-                isEquipped={true}
-                context={
-                  dropToEquip || dropToSwapEquippedCards ? "deck" : "profile"
-                }
-                dropToSwapEquippedCards={dropToSwapEquippedCards}
-              />
+              <div key={i} className="flex-none">
+                <Card
+                  id={equippedCard.id}
+                  name={equippedCard.name}
+                  description={equippedCard.description}
+                  type={equippedCard.type}
+                  effects={equippedCard.effects}
+                  conditions={equippedCard.conditions}
+                  slot={equippedCard.slot}
+                  quantity={0}
+                  isEquipped={true}
+                  context={
+                    dropToEquip || dropToSwapEquippedCards ? "deck" : "profile"
+                  }
+                  dropToSwapEquippedCards={dropToSwapEquippedCards}
+                />
+              </div>
             );
           }
         } else {
           slots.push(
-            <EmptySlot
-              key={i}
-              slot={i}
-              context="deck"
-              dropToEquip={dropToEquip}
-              dropToSwapEquippedCards={dropToSwapEquippedCards}
-            />
+            <div key={i} className="flex-none">
+              <EmptySlot
+                key={i}
+                slot={i}
+                context="deck"
+                dropToEquip={dropToEquip}
+                dropToSwapEquippedCards={dropToSwapEquippedCards}
+              />
+            </div>
           );
         }
       }
@@ -60,9 +63,9 @@ export default function EquippedCards({
   return (
     <>
       <div className="flex flex-col p-2 justify-center items-center max-w-[100vw]">
-        <h3 className="text-white text-xl pb-4">Cards equipped</h3>
+        <h3 className="text-white text-xl pb-4">Deck</h3>
         <div
-          className={`flex items-center gap-2 max-w-full overflow-x-auto min-h-52`}
+          className={`flex items-center gap-2 max-w-full overflow-x-auto  p-8  `}
         >
           {equippedCards ? (
             renderEquippedCards()

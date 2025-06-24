@@ -59,19 +59,13 @@ export default function EquipmentPage() {
       stableFetchProfile();
       return;
     }
-    if (!currentFighter) {
-      setCurrentFighter(selectedFighter);
-    }
-    if (!currentEquipmentCollection) {
-      setCurrentEquipmentCollection(profile?.equipmentCollection);
-    }
-  }, [
-    stableFetchProfile,
-    selectedFighter,
-    currentFighter,
-    currentEquipmentCollection,
-    profile,
-  ]);
+    setCurrentFighter((prev) => prev ?? selectedFighter);
+
+    setCurrentEquipmentCollection(
+      (prev) => prev ?? profile?.equipmentCollection
+    );
+    console.log("test");
+  }, [stableFetchProfile, selectedFighter, profile]);
 
   return (
     <div className="flex-1 flex flex-col  p-4 select-none text-white pb-24 md:pb-0">
