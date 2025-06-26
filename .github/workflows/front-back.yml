@@ -1,0 +1,74 @@
+name: Front - Back
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  front-back-cypress:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pull le repo du frontend
+        uses: actions/checkout@v4
+        with:
+          path: frontend
+
+      - name: Pull le repo du backend
+        uses: actions/checkout@v4
+        with:
+          repository: Cemus/fil-rouge-back
+          path: backend
+
+      - name: Installation de Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+
+      - name: Installation des dépendances frontend
+        run: npm install
+
+      - name: Installation des dépendances backend
+        run: |
+          cd backend
+          npm install
+
+      - name: Lancement du backend
+        run: |
+          cd backend
+          npm start &
+        env:
+          PORT: 3000
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+      - name: Attendre le back...
+        run: npx wait-on http://localhost:3000/health --timeout 30000
+
+      - name: Lancement du frontend
+        run: npm run dev &
+
+      - name: Attendre le front...
+        run: npx wait-on http://localhost:5173
+
+      - name: Runner les tests
+        uses: cypress-io/github-action@v6
+        with:
+          wait-on: http://localhost:5173
+          browser: chrome
+
+      - name: Upload des screens
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/videos
+            cypress/screenshots
