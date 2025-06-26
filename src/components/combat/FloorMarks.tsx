@@ -16,7 +16,7 @@ export default function FloorMarks({ setIsFloorLoaded }: FloorMarksProps) {
     const loadMark = async () => {
       const loader = new GLTFLoader();
       const floorMarkGlb = await loader.loadAsync(
-        `/models/utils/floorMarks.glb`
+        `${import.meta.env.VITE_PUBLIC_BASE_URL}./models/utils/floorMarks.glb`
       );
       return floorMarkGlb.scene.children[0];
     };

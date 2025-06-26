@@ -28,7 +28,9 @@ export default function LastFights({
     const fetchLastFights = async () => {
       try {
         const response = await axios.get<LastFightsProps[]>(
-          `/api/combat-history/${fighterId}`,
+          `${
+            import.meta.env.VITE_API_BASE_URL
+          }/api/combat-history/${fighterId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -66,18 +68,24 @@ export default function LastFights({
         fighterId === fight.fighter1_id
           ? fight.fighter2_name
           : fight.fighter1_name;
-
+      const boxStyle = () => {
+        if (fight.winner_id === null) {
+          return "bg-yellow-800";
+        } else if (fight.winner_id === fighterId) {
+          return "bg-green-500";
+        } else {
+          return "bg-red-500";
+        }
+      };
       return (
         <div
           key={index}
-          className={`p-2 w-full text-lg px-4 text-center ${
-            isPlayerWinner ? "bg-green-500" : "bg-red-500"
-          } rounded-lg cursor-pointer transition-transform duration-200 ease-in-out
+          className={`p-2 w-full text-lg px-4 text-center ${boxStyle()} rounded-lg cursor-pointer transition-transform duration-200 ease-in-out
     hover:scale-110 hover:shadow-lg hover:z-10`}
         >
           {draw ? (
             <p>
-              Draw against
+              Draw against{" "}
               <span className="text-xl font-bold">{opponentUsername}</span>
             </p>
           ) : isPlayerWinner ? (

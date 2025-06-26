@@ -39,11 +39,9 @@ const Battlefield = () => {
   const [playerFighter, setPlayerFighter] = useState({
     ...location.state?.player,
   });
-  console.log(playerFighter);
   const [opponentFighter, setOpponentFighter] = useState({
     ...location.state?.opponent,
   });
-
   const [player, setPlayer] = useState<Fighter>({
     id: playerFighter.id,
     health: playerFighter.stats.hp,
@@ -51,7 +49,6 @@ const Battlefield = () => {
     animationState: { prevAnimation: "none", currentAnimation: "idle", id: 0 },
     position: -3,
   });
-
   const [opponent, setOpponent] = useState<Fighter>({
     id: opponentFighter.id,
     health: opponentFighter.stats.hp,
@@ -59,20 +56,15 @@ const Battlefield = () => {
     animationState: { prevAnimation: "none", currentAnimation: "idle", id: 0 },
     position: 3,
   });
-
   const [battleStarts, setBattleStarts] = useState<boolean>(false);
   const [battleEnds, setBattleEnds] = useState<boolean>(false);
-
   const [loader, setLoader] = useState<{
     playerIsReady: boolean;
     opponentIsReady: boolean;
   }>({ playerIsReady: false, opponentIsReady: false });
-
   const [battleLog, setBattleLog] = useState<CombatLog[]>([]);
-  const [winner, setWinner] = useState<number | null>(null);
-
+  const [battleResult, setBattleResult] = useState<boolean | null>(null);
   const [currentLogIndex, setCurrentLogIndex] = useState(0);
-
   const [endingPopUp, setEndingPopUp] = useState(false);
 
   //STATS
@@ -94,10 +86,11 @@ const Battlefield = () => {
       if (!playerFighter || !opponentFighter) {
         return;
       }
-
       try {
+        const start = performance.now();
+
         const response = await axios.post(
-          "/api/combat-result/",
+          `${import.meta.env.VITE_API_BASE_URL}/api/combat-result/`,
           { fighter1: playerFighter, fighter2: opponentFighter },
           {
             headers: {
@@ -105,8 +98,15 @@ const Battlefield = () => {
             },
           }
         );
+        const end = performance.now();
+        console.info(`Temps de réponse serveur : ${end - start}`);
+
         setBattleLog(response.data.combat.combat_log);
-        setWinner(response.data.combat.winner_id);
+        setBattleResult(
+          response.data.combat.winner_id === null
+            ? null
+            : response.data.combat.winner_id === player.id
+        );
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des cartes possédées ou équipées:",
@@ -128,7 +128,11 @@ const Battlefield = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (isFightReady(loader)) {
-        setBattleStarts(true);
+        if (battleLog.length > 0) {
+          setBattleStarts(true);
+        } else {
+          setBattleEnds(true);
+        }
       }
     }, 1000);
     return () => clearTimeout(timer);
@@ -364,7 +368,6 @@ const Battlefield = () => {
   useEffect(() => {
     if (battleEnds) {
       setTimeout(() => {
-        console.log(winner);
         console.log(playerFighter.id);
         setEndingPopUp(true);
       }, 1000);
@@ -384,7 +387,7 @@ const Battlefield = () => {
             open
             className="relative z-10 m-auto p-4 bg-white rounded shadow-lg max-w-md w-full"
           >
-            <ResultsScreen battleResult={winner === playerFighter.id} />
+            <ResultsScreen battleResult={battleResult} />
           </dialog>
         </div>
       ) : (

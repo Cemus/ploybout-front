@@ -1,5 +1,6 @@
 {
   "name": "ploybout-frontend",
+  "homepage": "https://Cemus.github.io/ploybout-front/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +10,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "host": "vite --host",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@react-three/drei": "^9.109.2",
@@ -18,6 +21,7 @@
     "@types/react-dnd-multi-backend": "^6.0.6",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.7.2",
+    "rdndmb-html5-to-touch": "^9.0.0",
     "react": "^18.3.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
@@ -41,6 +45,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.4.38",
     "react-router-dom": "^6.24.0",
     "tailwindcss": "^3.4.4",

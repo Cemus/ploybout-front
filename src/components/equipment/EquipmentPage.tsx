@@ -33,7 +33,7 @@ export default function EquipmentPage() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "/api/equipment/update",
+        `${import.meta.env.VITE_API_BASE_URL}/api/equipment/update`,
         {
           fighterId,
           equipmentSlots,
@@ -64,7 +64,6 @@ export default function EquipmentPage() {
     setCurrentEquipmentCollection(
       (prev) => prev ?? profile?.equipmentCollection
     );
-    console.log("test");
   }, [stableFetchProfile, selectedFighter, profile]);
 
   return (

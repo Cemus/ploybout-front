@@ -61,10 +61,13 @@ export default function RegisterForm() {
     }
 
     try {
-      const response = await axios.post("/api/register", {
-        username: formData.username,
-        password: formData.password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/register`,
+        {
+          username: formData.username,
+          password: formData.password,
+        }
+      );
 
       const data = response.data;
       const token = data.token;

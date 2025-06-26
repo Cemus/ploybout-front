@@ -40,7 +40,7 @@ export default function CombatPage() {
 
       try {
         const fightersResponse = await axios.post(
-          "/api/seek-fighters",
+          `${import.meta.env.VITE_API_BASE_URL}/api/seek-fighters`,
           {
             fighter_id: selectedFighter!.id,
           },

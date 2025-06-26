@@ -6,10 +6,10 @@ export default function NavBarDesktop() {
 
   return (
     <nav className="text-white text-sm md:text-lg p-4">
-      <ul className="flex justify-between">
+      <div className="flex justify-between">
         <div className="flex items-center justify-center gap-2 ">
           {isLoggedIn ? (
-            <>
+            <ul className="flex">
               <li className="px-2 select-none">
                 <Link to="/profile">Profile</Link>
               </li>
@@ -22,9 +22,9 @@ export default function NavBarDesktop() {
               <li className="px-2 select-none">
                 <Link to="/arena">Arena</Link>
               </li>
-            </>
+            </ul>
           ) : (
-            <>
+            <ul className="flex">
               <li>
                 <Link className="custom-nav-button" to="/">
                   Home
@@ -45,10 +45,10 @@ export default function NavBarDesktop() {
                   Conditions of Use
                 </Link>
               </li>
-            </>
+            </ul>
           )}
         </div>
-      </ul>
+      </div>
     </nav>
   );
 }

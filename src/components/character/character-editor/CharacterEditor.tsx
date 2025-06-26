@@ -31,7 +31,7 @@ export default function CharacterEditor() {
     setLoading(true);
     try {
       const response = await axios.post(
-        "/api/create-fighter",
+        `${import.meta.env.VITE_API_BASE_URL}/api/create-fighter`,
         {
           fighterName,
           skinColor,

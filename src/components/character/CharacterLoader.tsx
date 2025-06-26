@@ -28,8 +28,10 @@ const equipBody = async (
   character: THREE.Object3D<THREE.Object3DEventMap>,
   itemName: string
 ) => {
+  const assetsUrlPrefix = import.meta.env.VITE_PUBLIC_BASE_URL;
+
   const armorglb = (await loader.loadAsync(
-    `/models/equipment/${itemName}.glb`
+    `${assetsUrlPrefix}./models/equipment/${itemName}.glb`
   )) as GLTF;
   const body = armorglb.scene.children[0].children[0] as THREE.SkinnedMesh;
   const characterBody = character.getObjectByName("body") as THREE.Object3D;
@@ -69,8 +71,10 @@ const equipHandsOrFeet = async (
   itemName: string,
   type: string
 ) => {
+  const assetsUrlPrefix = import.meta.env.VITE_PUBLIC_BASE_URL;
+
   const itemGlb = (await loader.loadAsync(
-    `/models/equipment/${itemName}.glb`
+    `${assetsUrlPrefix}./models/equipment/${itemName}.glb`
   )) as GLTF;
   const item = itemGlb.scene.children[0].children[0] as THREE.SkinnedMesh;
   const mesh =
@@ -92,8 +96,10 @@ const equipWeapon = async (
   character: THREE.Object3D<THREE.Object3DEventMap>,
   itemName: string
 ) => {
+  const assetsUrlPrefix = import.meta.env.VITE_PUBLIC_BASE_URL;
+
   const weaponGlb = (await loader.loadAsync(
-    `/models/weapons/${itemName}.glb`
+    `${assetsUrlPrefix}./models/weapons/${itemName}.glb`
   )) as GLTF;
   const weapon = weaponGlb.scene.children[0] as THREE.Mesh;
   const emptyHand = character.getObjectByName("mixamorigRightHand");
@@ -110,10 +116,13 @@ const loadCharacterModel = async (
 ) => {
   const loader = new GLTFLoader();
   const textureLoader = new THREE.TextureLoader();
+  const assetsUrlPrefix = import.meta.env.VITE_PUBLIC_BASE_URL;
 
   try {
-    // Character
-    const characterGlb = await loader.loadAsync("/models/player/player.glb");
+    //character
+    const characterGlb = await loader.loadAsync(
+      `${assetsUrlPrefix}./models/player/player.glb`
+    );
     const character = characterGlb.scene.children[0];
     const skinMaterial = new THREE.MeshToonMaterial({
       color: `${visuals.skinColor}`,
@@ -149,7 +158,7 @@ const loadCharacterModel = async (
 
     // Hairs
     const hairGlb = await loader.loadAsync(
-      `/models/player/hairs/${visuals.hairType}.glb`
+      `${assetsUrlPrefix}./models/player/hairs/${visuals.hairType}.glb`
     );
     const hairs = hairGlb.scene.children[0] as THREE.Mesh;
     const hairsMaterial = new THREE.MeshToonMaterial({
@@ -163,10 +172,12 @@ const loadCharacterModel = async (
     facePartsGroup.add(hairs);
 
     // Eyes
-    const eyesGlb = await loader.loadAsync("/models/player/eyes/eyes.glb");
+    const eyesGlb = await loader.loadAsync(
+      `${assetsUrlPrefix}./models/player/eyes/eyes.glb`
+    );
     const eyes = eyesGlb.scene.children[0] as THREE.Mesh;
     const eyesTexture = textureLoader.load(
-      `    /models/player/eyes/textures/${visuals.eyesType}/${visuals.eyesColor}.png`
+      `${assetsUrlPrefix}./models/player/eyes/textures/${visuals.eyesType}/${visuals.eyesColor}.png`
     );
     eyesTexture.flipY = false;
     eyes.material = new THREE.MeshToonMaterial({
@@ -177,10 +188,12 @@ const loadCharacterModel = async (
     facePartsGroup.add(eyes);
 
     // Mouth
-    const mouthGlb = await loader.loadAsync("/models/player/mouth/mouth.glb");
+    const mouthGlb = await loader.loadAsync(
+      `${assetsUrlPrefix}./models/player/mouth/mouth.glb`
+    );
     const mouth = mouthGlb.scene.children[0] as THREE.Mesh;
     const mouthTexture = textureLoader.load(
-      `    /models/player/mouth/textures/${visuals.mouthType}.png`
+      `${assetsUrlPrefix}./models/player/mouth/textures/${visuals.mouthType}.png`
     );
     mouthTexture.flipY = false;
     const mouthMaterial = new THREE.MeshStandardMaterial({
@@ -219,14 +232,15 @@ const loadCharacterModel = async (
 const loadAnimations = async (character: THREE.Group) => {
   const loader = new GLTFLoader();
   const mixer = new THREE.AnimationMixer(character);
+  const assetsUrlPrefix = import.meta.env.VITE_PUBLIC_BASE_URL;
 
   const animations = {
-    idle: "/models/player/animations/idle.glb",
-    run: "/models/player/animations/run.glb",
-    attack: "/models/player/animations/attack.glb",
-    hurt: "/models/player/animations/hurt.glb",
-    cast: "/models/player/animations/cast.glb",
-    defeat: "/models/player/animations/defeat.glb",
+    idle: `${assetsUrlPrefix}./models/player/animations/idle.glb`,
+    run: `${assetsUrlPrefix}./models/player/animations/run.glb`,
+    attack: `${assetsUrlPrefix}./models/player/animations/attack.glb`,
+    hurt: `${assetsUrlPrefix}./models/player/animations/hurt.glb`,
+    cast: `${assetsUrlPrefix}./models/player/animations/cast.glb`,
+    defeat: `${assetsUrlPrefix}./models/player/animations/defeat.glb`,
   };
 
   const actions: { [key: string]: THREE.AnimationAction } = {};
@@ -449,6 +463,7 @@ export default memo(function CharacterLoader({
     setCharacterReadiness,
     isPlayer,
     stableCleanUp,
+    fighterId,
   ]);
 
   const moveModel = () => {

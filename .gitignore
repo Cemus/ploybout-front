@@ -16,6 +16,8 @@ devtools
 
 getApiAddress.ts
 .env
+.env.production
+
 
 # Editor directories and files
 .vscode/*

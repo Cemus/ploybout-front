@@ -20,11 +20,14 @@ export const useProfile = () => {
         return;
       }
 
-      const response = await axios.get("/api/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/profile`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(response.data);
       const profileData: ProfileInterface = response.data;
 

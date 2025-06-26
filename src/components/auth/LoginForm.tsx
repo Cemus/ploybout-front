@@ -34,10 +34,13 @@ export default function LoginForm() {
     setError(null);
     setLoading(true);
     try {
-      const response = await axios.post("/api/login", {
-        username: formData.username,
-        password: formData.password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/login`,
+        {
+          username: formData.username,
+          password: formData.password,
+        }
+      );
 
       const data = response.data;
       const hasFighters = data.hasFighters;
@@ -55,7 +58,9 @@ export default function LoginForm() {
     } catch (error) {
       const e = error as AxiosError;
       const errorMessage = (e.response?.data as { error?: string }).error;
-      setError(`Error: ${errorMessage}`);
+      errorMessage
+        ? setError(`Error: ${errorMessage}`)
+        : setError(`Error: Internal error`);
     } finally {
       setLoading(false);
     }

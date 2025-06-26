@@ -67,7 +67,7 @@ export default function useCardCollection() {
             (c) => c.id === cardId && c.slot === slot
           );
           if (cardToMove) {
-            const newQuantity = cardToMove.quantity - 1;
+            const newQuantity = (cardToMove.quantity ?? 0) + 1;
             return [
               ...prevCards,
               { ...cardToMove, quantity: newQuantity, context: "collection" },
@@ -157,7 +157,7 @@ export default function useCardCollection() {
       const token = localStorage.getItem("token");
       const fighterId = selectedFighter.id;
       const postResponse = await axios.post(
-        "/api/update-cards",
+        `${import.meta.env.VITE_API_BASE_URL}/api/update-cards`,
         {
           collection,
           equippedCards,

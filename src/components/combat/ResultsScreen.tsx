@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 interface ResultsScreenProps {
-  battleResult: boolean | null; // true = gagné, false = perdu, null = ex aequo
+  battleResult: boolean | null;
 }
 
 export default function ResultsScreen({ battleResult }: ResultsScreenProps) {
@@ -17,12 +17,12 @@ export default function ResultsScreen({ battleResult }: ResultsScreenProps) {
   if (battleResult === true) {
     message = "You win!";
     colorClass = "text-[var(--green2)]";
-  } else if (battleResult === false) {
-    message = "You lose...";
-    colorClass = "text-[var(--red3)]";
-  } else {
+  } else if (battleResult === null) {
     message = "ex æquo.";
     colorClass = "text-[var(--yellow2)]";
+  } else {
+    message = "You lose...";
+    colorClass = "text-[var(--red3)]";
   }
 
   return (
