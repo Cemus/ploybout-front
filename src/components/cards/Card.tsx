@@ -59,59 +59,81 @@ export default function Card({
     }
   }, [setIsGrayed, isDragging, isDraggable, quantity, isEquipped, context]);
 
-  const getCost = () => {
-    return conditions.map((condition) => {
-      if (condition.type.includes("_cost")) {
+  const getCondition = (condition: string, value: number) => {
+    switch (condition) {
+      case "energyCost":
         return (
-          <div className="flex items-center" key={condition.type}>
+          <li className="flex items-center" key={condition}>
+            <p>Cost</p>
+            <span className="condeffect lg:px-2 px-1">{value}</span>
+
             <img
-              src={
-                cardIcons[
-                  condition.type.slice(0, condition.type.indexOf("_cost"))
-                ]
-              }
-              alt={`${condition.type} icon`}
+              src={cardIcons[condition.slice(0, condition.indexOf("Cost"))]}
+              alt={`${condition} icon`}
               className="w-4 h-4 lg:w-6 lg:h-6 mr-1 bg-white rounded-full"
             />
-            <span>{condition.value}</span>
-          </div>
+          </li>
         );
-      }
-      return null;
-    });
+
+      case "weaponReach":
+        if (value === -1) {
+          return (
+            <li className="flex items-center" key={condition}>
+              <p>Adjacent to opponent</p>
+            </li>
+          );
+        } else {
+          return null;
+        }
+
+      case "canMove":
+        return (
+          <li className="flex items-center" key={condition}>
+            <p>
+              Can move to
+              <span className="condeffect lg:px-2 px-1">{value}</span>
+              to one cell
+            </p>
+          </li>
+        );
+
+      default:
+        null;
+    }
   };
 
   const getEffect = (effect: string, value: number) => {
     switch (effect) {
       case "damage":
         return (
-          <span>
-            Damage your opponent for{" "}
-            <span className="font-bold text-green-300">{value}</span>
-          </span>
+          <li>
+            Damage your opponent for
+            <span className="condeffect lg:px-2 px-1">{value}</span>
+          </li>
         );
       case "gainEnergy":
         return (
-          <div className="flex gap-1 justify-start">
+          <li className="flex gap-1 justify-start">
             <p>
-              Gain<span className="font-bold text-green-300"> {value}</span>
+              Gain
+              <span className="condeffect lg:px-2 px-1">{value}</span>
             </p>
             <img
               src={cardIcons[effect.slice(4).toLowerCase()]}
               alt={`${effect.slice(4)} cost`}
               className="relative bottom-1 w-4 h-4 lg:w-6 lg:h-6 bg-white rounded-full"
             />
-          </div>
+          </li>
         );
       case "movement":
         return (
-          <div className="flex gap-1">
+          <li className="flex gap-1">
             <p>
               Move {value > 0 ? "forward" : "back"} to
-              <span className="font-bold text-green-300"> {value}&nbsp;</span>
+              <span className="condeffect lg:px-2 px-1">{value}</span>
               cell
             </p>
-          </div>
+          </li>
         );
       default:
         return null;
@@ -127,23 +149,39 @@ export default function Card({
             drop(node);
           }
         }}
-        className={`w-40 h-60 lg:w-48 lg:h-72 flex flex-col justify-between text-center text-xs lg:text-sm p-2 bg-slate-500 border-4 border-black rounded-lg shadow-md select-none text-white ${
+        className={`w-40 h-60 lg:w-48 lg:h-72 flex flex-col justify-between text-center text-xs lg:text-sm  bg-slate-500 border-4 border-black rounded-lg shadow-md select-none text-white ${
           isGrayed ? "cursor-not-allowed opacity-50" : "cursor-grab opacity-100"
         } ${isOver ? "border-green-500" : ""}`}
       >
-        <header className="flex justify-between items-center p-1 bg-slate-900 min-h-[2rem] lg:min-h-[3rem] rounded-md">
-          <div className="flex items-center gap-1">{getCost()}</div>
+        <header className="flex justify-between items-center p-1 bg-slate-900 min-h-[2rem] lg:min-h-[3rem] ">
           <h3 className="flex-grow text-xs lg:text-lg text-center truncate">
             {name}
           </h3>
         </header>
 
-        <div className="flex flex-col justify-center items-center overflow-hidden text-ellipsis px-1 py-2 h-24 lg:h-28 bg-slate-800 bg-opacity-40 rounded">
-          {effects.map((effect, index) => (
-            <div className="text-[10px] lg:text-base leading-tight" key={index}>
-              {getEffect(effect.type, effect.value)}
+        <div className="flex flex-1 flex-col gap-1 m-1">
+          <div className="flex flex-1  flex-col justify-center items-center overflow-hidden text-ellipsis px-1 py-2 h-12 lg:h-16 bg-green-900 bg-opacity-40 rounded">
+            {effects.map((effect, index) => (
+              <ul
+                className="text-[10px]  lg:text-base leading-tight"
+                key={index}
+              >
+                {getEffect(effect.type, effect.value)}
+              </ul>
+            ))}
+          </div>
+          {conditions && conditions.length > 0 && (
+            <div className="flex flex-1  flex-col justify-center items-center overflow-hidden text-ellipsis px-1 py-2 h-12 lg:h-16 bg-red-900 bg-opacity-40 rounded">
+              {conditions.map((condition, index) => (
+                <ul
+                  className="text-[10px]  lg:text-base leading-tight"
+                  key={index}
+                >
+                  {getCondition(condition.type, condition.value)}
+                </ul>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       </div>
       <footer className="text-sm text-white">

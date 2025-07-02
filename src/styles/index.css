@@ -93,7 +93,7 @@ h3 {
   border-radius: 9999px;
 }
 
-li {
+ul {
   list-style: none;
 }
 
@@ -108,6 +108,11 @@ a {
 }
 a:hover {
   color: var(--yellow5);
+}
+
+.condeffect {
+  font-weight: bold;
+  font-family: "Bangers", serif;
 }
 
 .button {
