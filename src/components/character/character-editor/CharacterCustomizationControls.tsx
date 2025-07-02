@@ -165,23 +165,25 @@ export default function CharacterCustomizationControls({
           </select>
         </div>
       </div>
-      <button
-        type="submit"
-        onClick={() => handleSubmit()}
-        disabled={loading}
-        className={`px-4 py-2 w-1/2 self-center bg-blue-600 text-white rounded-lg hover:bg-blue-200 hover:text-black ${
-          loading || nameError || !localName ? "opacity-0" : "opacity-100"
-        }`}
-      >
-        Save this fighter
-      </button>
-      {loading && (
-        <div className="flex flex-col items-center justify-center gap-2">
+
+      {loading ? (
+        <div className="flex items-center justify-center gap-2">
           <p className="animate-pulse text-md text-green-500">
             Creating {localName}
           </p>
           <div className="loading-circle animate-spin"></div>
         </div>
+      ) : (
+        <button
+          type="submit"
+          onClick={() => handleSubmit()}
+          disabled={loading}
+          className={`px-4 py-2 w-1/2 self-center bg-blue-600 text-white rounded-lg hover:bg-blue-200 hover:text-black ${
+            loading || nameError || !localName ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          Save this fighter
+        </button>
       )}
     </div>
   );
