@@ -25,9 +25,9 @@ Un jeu de type <em>autobattler</em> où l'on crée son personnage en 3D pour le 
 <a href='https://github.com/Cemus/ploybout-front'><strong>Work in progress</strong></a>
 <br />
 <br />
-<a href=https://github.com/Cemus/ploybout-front/issues/new?labels=bug&template=bug-report---.md>Report a bug</a>
+<a href=https://github.com/Cemus/ploybout-front/issues/new?labels=bug&template=bug-report---.md>Signaler un bug</a>
 &middot;
-<a href=https://github.com/Cemus/ploybout-front/issues/new?labels=enhancement&template=feature-request---.md>Request a feature</a>
+<a href=https://github.com/Cemus/ploybout-front/issues/new?labels=enhancement&template=feature-request---.md>Demander une fonctionnalité</a>
 </p>
 </div>
 
