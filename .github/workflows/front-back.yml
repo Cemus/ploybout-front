@@ -53,9 +53,12 @@ jobs:
       - name: Attendre le back...
         run: npx wait-on http://localhost:3000/api/health --timeout 30000
 
-      - name: Lancement du frontend
+      - name: Lancer le frontend
         working-directory: frontend
-        run: npm run dev &
+        env:
+          VITE_API_URL: http://localhost:3000
+        run: |
+          npm run dev &
 
       - name: Attendre le front...
         run: npx wait-on http://localhost:5173 --timeout 30000
