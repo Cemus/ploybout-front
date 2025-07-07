@@ -61,7 +61,6 @@ jobs:
       - name: Runner les tests
         uses: cypress-io/github-action@v6
         with:
-          run: npm run dev
           wait-on: http://localhost:5173
           browser: chrome
 
