@@ -16,7 +16,7 @@ describe("Se connecter à un compte", () => {
       .type("azeazeaze")
       .should("have.value", "azeazeaze");
 
-    cy.intercept("POST", "http://localhost:3000/api/login").as("loginRequest");
+    cy.intercept("POST", "**/api/login").as("loginRequest");
     cy.get('button[type="submit"]').click();
     cy.wait("@loginRequest").its("response.statusCode").should("eq", 200);
 
