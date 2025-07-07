@@ -30,11 +30,15 @@ jobs:
           node-version: 18
           cache: "npm"
 
+      - name: Déplacement front
+        run: cd frontend
+
       - name: Installation des dépendances frontend
         run: npm install
 
       - name: Installation des dépendances backend
         run: |
+          cd ..
           cd backend
           npm install
 
