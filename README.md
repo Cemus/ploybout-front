@@ -35,19 +35,19 @@ Un jeu de type <em>autobattler</em> où l'on crée son personnage en 3D pour le 
 <summary>Sommaire</summary>
 <ol>
 <li>
-<a href='#about'>À propos</a>
+<a href='#à-propos'>À propos</a>
 <ul>
 <li><a href=#technologies>Technologies</a></li>
 </ul>
 </li>
 <li>
-<a href='#local-installation'>Installation locale</a>
+<a href='#installation-locale'>Installation locale</a>
 <ul>
-<li><a href='#prerequisites'>Prérequis</a></li>
+<li><a href='#prerequis'>Prérequis</a></li>
 <li><a href=#installation>Installation</a></li>
 </ul>
 </li>
-<li><a href=#useful-links>Liens utiles</a></li>
+<li><a href=#liens-utiles>Liens utiles</a></li>
 </ol>
 </details>
 
