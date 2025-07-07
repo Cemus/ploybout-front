@@ -13,34 +13,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Pull le repo du frontend
+      - name: Pull Frontend
         uses: actions/checkout@v4
         with:
           path: frontend
 
-      - name: Pull le repo du backend
+      - name: Pull Backend
         uses: actions/checkout@v4
         with:
           repository: Cemus/fil-rouge-back
           path: backend
 
-      - name: Installation de Node
+      - name: Installation de Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: "npm"
 
-      - name: Déplacement front
-        run: cd frontend
-
-      - name: Installation des dépendances frontend
+      - name: Installation des dépendances front
+        working-directory: frontend
         run: npm install
 
-      - name: Installation des dépendances backend
-        run: |
-          cd ..
-          cd backend
-          npm install
+      - name: Installation des dépendances back
+        working-directory: backend
+        run: npm install
 
       - name: Lancement du backend
         run: |
