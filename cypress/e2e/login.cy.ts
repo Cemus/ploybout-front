@@ -11,7 +11,7 @@ describe("Se connecter à un compte", () => {
     cy.get('input[name="username"]').type("azeazeaze");
     cy.get('input[name="password"]').type("azeazeaze");
 
-    cy.intercept("POST", "/api/login").as("loginRequest");
+    cy.intercept("POST", "http://localhost:3000/api/login").as("loginRequest");
 
     cy.get('button[type="submit"]').click();
 
