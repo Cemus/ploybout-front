@@ -20,7 +20,7 @@
 <h3 align='center'>Ploybout</h3>
 
 <p align="center">
-Un jeu de type <em>autobattler</em> où l'on crée son personnage en 3D pour le faire combattre dans des duels multijoueurs !
+Un jeu de type <i>autobattler</i> où l'on crée son personnage en 3D pour le faire combattre dans des duels multijoueurs !
 <br />
 <a href='https://github.com/Cemus/ploybout-front'><strong>Work in progress</strong></a>
 <br />
@@ -43,7 +43,7 @@ Un jeu de type <em>autobattler</em> où l'on crée son personnage en 3D pour le 
 <li>
 <a href='#installation-locale'>Installation locale</a>
 <ul>
-<li><a href='#prerequis'>Prérequis</a></li>
+<li><a href='#prérequis'>Prérequis</a></li>
 <li><a href=#installation>Installation</a></li>
 </ul>
 </li>
