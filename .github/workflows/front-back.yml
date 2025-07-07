@@ -44,7 +44,7 @@ jobs:
         run: |
           npx nodemon server.ts &
         env:
-          PORT: 3000
+          PORT: ${{ secrets.PORT }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           DB_USER: ${{ secrets.DB_USER }}
@@ -56,7 +56,7 @@ jobs:
       - name: Lancer le frontend
         working-directory: frontend
         env:
-          VITE_API_URL: http://localhost:3000
+          VITE_API_BASE_URL: http://localhost:3000
         run: |
           npm run dev &
 
