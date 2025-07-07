@@ -20,7 +20,7 @@
 <h3 align='center'>Ploybout</h3>
 
 <p align="center">
-A multiplayer web browser game
+Un jeu de type <em>autobattler</em> où l'on crée son personnage en 3D pour le faire combattre dans des duels multijoueurs !
 <br />
 <a href='https://github.com/Cemus/ploybout-front'><strong>Work in progress</strong></a>
 <br />
@@ -32,30 +32,30 @@ A multiplayer web browser game
 </div>
 
 <details>
-<summary>Table of contents</summary>
+<summary>Sommaire</summary>
 <ol>
 <li>
-<a href='#about'>About</a>
+<a href='#about'>À propos</a>
 <ul>
 <li><a href=#technologies>Technologies</a></li>
 </ul>
 </li>
 <li>
-<a href='#local-installation'>Local installation</a>
+<a href='#local-installation'>Installation locale</a>
 <ul>
-<li><a href='#prerequisites'>Prerequisites</a></li>
+<li><a href='#prerequisites'>Prérequis</a></li>
 <li><a href=#installation>Installation</a></li>
 </ul>
 </li>
-<li><a href=#useful-links>Useful links</a></li>
+<li><a href=#useful-links>Liens utiles</a></li>
 </ol>
 </details>
 
-## About
+## À propos
 
 [![Ploybout Screenshot](screenshot.png)](https://github.com/Cemus/ploybout-front)
 
-## Features
+## Fonctionnalités
 
 - Customizable 3D characters
 - Asynchronous PvP battles
@@ -72,11 +72,11 @@ A multiplayer web browser game
 
 <p align='right'>(<a href='#readme-top'>Retour en haut</a>)</p>
 
-## Local installation
+## Installation locale
 
 Pour installer ce projet localement, il faut suivre ces étapes simples.
 
-### Prerequisites
+### Prérequis
 
 Installer npm
 
@@ -106,7 +106,7 @@ npm run dev
 
 <p align='right'>(<a href='#readme-top'>Retour en haut</a>)</p>
 
-## Useful links
+## Liens utiles
 
 [Ploybout](https://cemus.github.io/ploybout-front/)
 
