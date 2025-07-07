@@ -41,7 +41,6 @@ jobs:
 
       - name: Lancement du backend
         run: |
-          cd backend
           npm start &
         env:
           PORT: 3000
