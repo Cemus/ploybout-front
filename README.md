@@ -20,46 +20,46 @@
 <h3 align='center'>Ploybout</h3>
 
 <p align="center">
-A multiplayer web browser game
+Un jeu de type <i>autobattler</i> où l'on crée son personnage en 3D pour le faire combattre dans des duels multijoueurs !
 <br />
 <a href='https://github.com/Cemus/ploybout-front'><strong>Work in progress</strong></a>
 <br />
 <br />
-<a href=https://github.com/Cemus/ploybout-front/issues/new?labels=bug&template=bug-report---.md>Report a bug</a>
+<a href=https://github.com/Cemus/ploybout-front/issues/new?labels=bug&template=bug-report---.md>Signaler un bug</a>
 &middot;
-<a href=https://github.com/Cemus/ploybout-front/issues/new?labels=enhancement&template=feature-request---.md>Request a feature</a>
+<a href=https://github.com/Cemus/ploybout-front/issues/new?labels=enhancement&template=feature-request---.md>Demander une fonctionnalité</a>
 </p>
 </div>
 
 <details>
-<summary>Table of contents</summary>
+<summary>Sommaire</summary>
 <ol>
 <li>
-<a href='#about'>About</a>
+<a href='#à-propos'>À propos</a>
 <ul>
 <li><a href=#technologies>Technologies</a></li>
 </ul>
 </li>
 <li>
-<a href='#local-installation'>Local installation</a>
+<a href='#installation-locale'>Installation locale</a>
 <ul>
-<li><a href='#prerequisites'>Prerequisites</a></li>
+<li><a href='#prérequis'>Prérequis</a></li>
 <li><a href=#installation>Installation</a></li>
 </ul>
 </li>
-<li><a href=#useful-links>Useful links</a></li>
+<li><a href=#liens-utiles>Liens utiles</a></li>
 </ol>
 </details>
 
-## About
+## À propos
 
 [![Ploybout Screenshot](screenshot.png)](https://github.com/Cemus/ploybout-front)
 
-## Features
+## Fonctionnalités
 
-- Customizable 3D characters
-- Asynchronous PvP battles
-- Deck-building mechanics
+- Personnages 3D personnalisables
+- Duels PvP asynchrones
+- Mécaniques de construction de deck
 
 <p align='right'>(<a href='#readme-top'>Retour en haut</a>)</p>
 
@@ -72,11 +72,11 @@ A multiplayer web browser game
 
 <p align='right'>(<a href='#readme-top'>Retour en haut</a>)</p>
 
-## Local installation
+## Installation locale
 
 Pour installer ce projet localement, il faut suivre ces étapes simples.
 
-### Prerequisites
+### Prérequis
 
 Installer npm
 
@@ -106,7 +106,7 @@ npm run dev
 
 <p align='right'>(<a href='#readme-top'>Retour en haut</a>)</p>
 
-## Useful links
+## Liens utiles
 
 [Ploybout](https://cemus.github.io/ploybout-front/)
 
