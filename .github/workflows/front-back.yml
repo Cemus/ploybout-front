@@ -40,6 +40,7 @@ jobs:
         run: npm install
 
       - name: Lancement du backend
+        working-directory: backend
         run: |
           npm start &
         env:
