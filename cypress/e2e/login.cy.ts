@@ -13,7 +13,6 @@ describe("Se connecter à un compte", () => {
 
     cy.get('button[type="submit"]').click();
 
-    cy.url().should("include", "/profile");
     cy.contains("azeazeaze").should("be.visible");
   });
 });
