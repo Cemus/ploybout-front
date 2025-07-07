@@ -54,6 +54,7 @@ jobs:
         run: npx wait-on http://localhost:3000/health --timeout 30000
 
       - name: Lancement du frontend
+        working-directory: frontend
         run: npm run dev &
 
       - name: Attendre le front...
