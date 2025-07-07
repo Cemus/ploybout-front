@@ -57,9 +57,9 @@ Un jeu de type <em>autobattler</em> où l'on crée son personnage en 3D pour le 
 
 ## Fonctionnalités
 
-- Customizable 3D characters
-- Asynchronous PvP battles
-- Deck-building mechanics
+- Personnages 3D personnalisables
+- Duels PvP asynchrones
+- Mécaniques de construction de deck
 
 <p align='right'>(<a href='#readme-top'>Retour en haut</a>)</p>
 
