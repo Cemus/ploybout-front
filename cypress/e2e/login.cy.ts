@@ -16,7 +16,9 @@ describe("Se connecter à un compte", () => {
       .type("azeazeaze")
       .should("have.value", "azeazeaze");
 
-    cy.get('button[type="submit"]').should("be.enabled").click();
+    cy.intercept("POST", "/api/login").as("loginRequest");
+    cy.get('button[type="submit"]').click();
+    cy.wait("@loginRequest").its("response.statusCode").should("eq", 200);
 
     cy.contains("azeazeaze").should("be.visible");
   });
