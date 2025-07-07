@@ -73,5 +73,5 @@ jobs:
         with:
           name: cypress-artifacts
           path: |
-            cypress/videos
-            cypress/screenshots
+            frontend/cypress/videos
+            frontend/cypress/screenshots

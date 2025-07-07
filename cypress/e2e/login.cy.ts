@@ -1,9 +1,11 @@
 describe("Se connecter à un compte", () => {
   it("Devrait afficher la page de connexion", () => {
     cy.visit("http://localhost:5173/login");
+    cy.get("h3").contains("Login");
   });
   it("Devrait pouvoir se connecter", () => {
     cy.visit("http://localhost:5173/login");
+    cy.get("h3").contains("Login");
 
     cy.get('input[name="username"]').type("azeazeaze");
     cy.get('input[name="password"]').type("azeazeaze");
