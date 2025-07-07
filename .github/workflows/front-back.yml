@@ -42,7 +42,7 @@ jobs:
       - name: Lancement du backend
         working-directory: backend
         run: |
-          nodemon server.ts &
+          npx nodemon server.ts &
         env:
           PORT: 3000
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
